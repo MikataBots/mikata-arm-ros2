@@ -1,0 +1,35 @@
+{
+    "name": "MoveIt2 Humble Dev",
+    "build": {
+        // dockerディレクトリにあるDockerfileを指定
+        "dockerfile": "../docker/Dockerfile",
+        "context": ".."
+    },
+    "remoteUser": "ros",
+    "runArgs": [
+        "--network=host",
+        "--privileged",
+        // GUI表示のための設定
+        "--display", "${localEnv:DISPLAY}"
+    ],
+    "mounts": [
+        // X11ソケットのマウント (LinuxでのGUI表示用)
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+    ],
+    "containerEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "QT_X11_NO_MITSHM": "1"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-python.python",
+                "ms-iot.vscode-ros",
+                "zachflower.uncrustify"
+            ]
+        }
+    },
+    // コンテナ作成後にrosdepを更新する場合
+    // "postCreateCommand": "sudo rosdep update"
+}

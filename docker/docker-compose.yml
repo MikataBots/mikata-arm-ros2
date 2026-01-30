@@ -1,0 +1,3 @@
+services:
+  cpu:
+    image: moveit/moveti2:humble-source
