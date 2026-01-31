@@ -1,0 +1,31 @@
+name: mikata-arm-ros2
+
+services:
+  mikata-arm-dev:
+    build:
+      context: ..
+      dockerfile: docker/image/Dockerfile
+    image: mikata-arm-ros2:humble-dev
+    container_name: mikata-arm-ros2-dev
+    network_mode: host
+    privileged: true
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/tmp/.docker.xauth
+      - LIBGL_ALWAYS_SOFTWARE=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+      # X11ソケットのマウント (LinuxでのGUI表示用)
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # リポジトリをワークスペースのsrcにリンク
+      - ..:/home/ros/ws_mikata_arm/src/mikata-arm-ros2:cached
+      # DRI デバイス (OpenGL/GPU アクセス用)
+      - /dev/dri:/dev/dri
+    devices:
+      - /dev/dri:/dev/dri
+    working_dir: /home/ros/ws_mikata_arm
+    user: ros
+    stdin_open: true
+    tty: true
