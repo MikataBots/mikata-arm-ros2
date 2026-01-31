@@ -27,5 +27,15 @@ RUN groupadd --gid $USER_GID $USERNAME \
 USER $USERNAME
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
+# ワークスペースディレクトリを作成
+RUN mkdir -p /home/ros/ws_mikata_arm
+
+# デフォルトのシェルを設定
+ENV SHELL=/bin/bash
+RUN sudo chsh -s /bin/bash $USERNAME
+
 # 自作ロボットに必要な追加パッケージがあればここに記述します
 # RUN sudo apt-get update && sudo apt-get install -y ros-humble-xacro ...
+
+# デフォルトのシェルをbashに設定
+CMD ["/bin/bash"]
