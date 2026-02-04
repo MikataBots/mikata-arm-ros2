@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="mikata_arm" params="prefix parent *origin">
+
+    <!-- Joint properties -->
+    <xacro:property name="joint_damping" value="0.5"/>
+    <xacro:property name="joint_friction" value="0.1"/>
+    <xacro:property name="joint_effort_limit" value="100.0"/>
+    <xacro:property name="joint_velocity_limit" value="3.14"/>
+
+    <!-- Link dimensions (approximate values for 6-axis arm) -->
+    <xacro:property name="base_height" value="0.1"/>
+    <xacro:property name="base_radius" value="0.08"/>
+
+    <xacro:property name="link1_length" value="0.15"/>
+    <xacro:property name="link2_length" value="0.25"/>
+    <xacro:property name="link3_length" value="0.22"/>
+    <xacro:property name="link4_length" value="0.15"/>
+    <xacro:property name="link5_length" value="0.08"/>
+    <xacro:property name="link6_length" value="0.05"/>
+
+    <xacro:property name="link_radius" value="0.04"/>
+
+    <!-- Base link attachment -->
+    <joint name="${prefix}base_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${prefix}link_base"/>
+    </joint>
+
+    <!-- Base Link -->
+    <link name="${prefix}link_base">
+      <visual>
+        <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${base_radius}" length="${base_height}"/>
+        </geometry>
+        <material name="grey">
+          <color rgba="0.5 0.5 0.5 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${base_radius}" length="${base_height}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+        <mass value="1.0"/>
+        <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+      </inertial>
+    </link>
+
+    <!-- Joint 1: Base rotation -->
+    <joint name="${prefix}joint1" type="revolute">
+      <parent link="${prefix}link_base"/>
+      <child link="${prefix}link1"/>
+      <origin xyz="0 0 ${base_height}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="${-pi}" upper="${pi}" effort="${joint_effort_limit}" velocity="${joint_velocity_limit}"/>
+      <dynamics damping="${joint_damping}" friction="${joint_friction}"/>
+    </joint>
+
+    <!-- Link 1 -->
+    <link name="${prefix}link1">
+      <visual>
+        <origin xyz="0 0 ${link1_length/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${link_radius}" length="${link1_length}"/>
+        </geometry>
+        <material name="blue">
+          <color rgba="0.2 0.2 0.8 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${link1_length/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${link_radius}" length="${link1_length}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 ${link1_length/2}" rpy="0 0 0"/>
+        <mass value="0.5"/>
+        <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.0001"/>
+      </inertial>
+    </link>
+
+    <!-- Joint 2: Shoulder -->
+    <joint name="${prefix}joint2" type="revolute">
+      <parent link="${prefix}link1"/>
+      <child link="${prefix}link2"/>
+      <origin xyz="0 0 ${link1_length}" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="${-pi/2}" upper="${pi/2}" effort="${joint_effort_limit}" velocity="${joint_velocity_limit}"/>
+      <dynamics damping="${joint_damping}" friction="${joint_friction}"/>
+    </joint>
+
+    <!-- Link 2 -->
+    <link name="${prefix}link2">
+      <visual>
+        <origin xyz="${link2_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <cylinder radius="${link_radius}" length="${link2_length}"/>
+        </geometry>
+        <material name="red">
+          <color rgba="0.8 0.2 0.2 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="${link2_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <cylinder radius="${link_radius}" length="${link2_length}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="${link2_length/2} 0 0" rpy="0 0 0"/>
+        <mass value="0.8"/>
+        <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.004" iyz="0.0" izz="0.004"/>
+      </inertial>
+    </link>
+
+    <!-- Joint 3: Elbow -->
+    <joint name="${prefix}joint3" type="revolute">
+      <parent link="${prefix}link2"/>
+      <child link="${prefix}link3"/>
+      <origin xyz="${link2_length} 0 0" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="${-pi}" upper="${pi}" effort="${joint_effort_limit}" velocity="${joint_velocity_limit}"/>
+      <dynamics damping="${joint_damping}" friction="${joint_friction}"/>
+    </joint>
+
+    <!-- Link 3 -->
+    <link name="${prefix}link3">
+      <visual>
+        <origin xyz="${link3_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <cylinder radius="${link_radius}" length="${link3_length}"/>
+        </geometry>
+        <material name="green">
+          <color rgba="0.2 0.8 0.2 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="${link3_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <cylinder radius="${link_radius}" length="${link3_length}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="${link3_length/2} 0 0" rpy="0 0 0"/>
+        <mass value="0.6"/>
+        <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.003" iyz="0.0" izz="0.003"/>
+      </inertial>
+    </link>
+
+    <!-- Joint 4: Wrist roll -->
+    <joint name="${prefix}joint4" type="revolute">
+      <parent link="${prefix}link3"/>
+      <child link="${prefix}link4"/>
+      <origin xyz="${link3_length} 0 0" rpy="0 0 0"/>
+      <axis xyz="1 0 0"/>
+      <limit lower="${-pi}" upper="${pi}" effort="${joint_effort_limit}" velocity="${joint_velocity_limit}"/>
+      <dynamics damping="${joint_damping}" friction="${joint_friction}"/>
+    </joint>
+
+    <!-- Link 4 -->
+    <link name="${prefix}link4">
+      <visual>
+        <origin xyz="${link4_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <cylinder radius="${link_radius*0.8}" length="${link4_length}"/>
+        </geometry>
+        <material name="yellow">
+          <color rgba="0.8 0.8 0.2 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="${link4_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <cylinder radius="${link_radius*0.8}" length="${link4_length}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="${link4_length/2} 0 0" rpy="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="0.0005" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+      </inertial>
+    </link>
+
+    <!-- Joint 5: Wrist pitch -->
+    <joint name="${prefix}joint5" type="revolute">
+      <parent link="${prefix}link4"/>
+      <child link="${prefix}link5"/>
+      <origin xyz="${link4_length} 0 0" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="${-pi/2}" upper="${pi/2}" effort="${joint_effort_limit}" velocity="${joint_velocity_limit}"/>
+      <dynamics damping="${joint_damping}" friction="${joint_friction}"/>
+    </joint>
+
+    <!-- Link 5 -->
+    <link name="${prefix}link5">
+      <visual>
+        <origin xyz="${link5_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <cylinder radius="${link_radius*0.6}" length="${link5_length}"/>
+        </geometry>
+        <material name="cyan">
+          <color rgba="0.2 0.8 0.8 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="${link5_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <cylinder radius="${link_radius*0.6}" length="${link5_length}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="${link5_length/2} 0 0" rpy="0 0 0"/>
+        <mass value="0.2"/>
+        <inertia ixx="0.0002" ixy="0.0" ixz="0.0" iyy="0.0005" iyz="0.0" izz="0.0005"/>
+      </inertial>
+    </link>
+
+    <!-- Joint 6: Wrist roll (end effector) -->
+    <joint name="${prefix}joint6" type="revolute">
+      <parent link="${prefix}link5"/>
+      <child link="${prefix}link6"/>
+      <origin xyz="${link5_length} 0 0" rpy="0 0 0"/>
+      <axis xyz="1 0 0"/>
+      <limit lower="${-pi}" upper="${pi}" effort="${joint_effort_limit}" velocity="${joint_velocity_limit}"/>
+      <dynamics damping="${joint_damping}" friction="${joint_friction}"/>
+    </joint>
+
+    <!-- Link 6 (End effector) -->
+    <link name="${prefix}link6">
+      <visual>
+        <origin xyz="${link6_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <cylinder radius="${link_radius*0.5}" length="${link6_length}"/>
+        </geometry>
+        <material name="magenta">
+          <color rgba="0.8 0.2 0.8 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="${link6_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+        <geometry>
+          <cylinder radius="${link_radius*0.5}" length="${link6_length}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="${link6_length/2} 0 0" rpy="0 0 0"/>
+        <mass value="0.1"/>
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0002" iyz="0.0" izz="0.0002"/>
+      </inertial>
+    </link>
+
+    <!-- Tool center point (TCP) -->
+    <link name="${prefix}tcp"/>
+    <joint name="${prefix}tcp_joint" type="fixed">
+      <parent link="${prefix}link6"/>
+      <child link="${prefix}tcp"/>
+      <origin xyz="${link6_length} 0 0" rpy="0 0 0"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>
