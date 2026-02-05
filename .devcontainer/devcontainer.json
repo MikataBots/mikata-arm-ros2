@@ -2,7 +2,7 @@
     "name": "MikataArm MoveIt2 Humble Dev",
     "dockerComposeFile": "../docker/docker-compose.yml",
     "service": "mikata-arm-dev",
-    "workspaceFolder": "/home/ros/ws_mikata_arm",
+    "workspaceFolder": "/home/ros/ws_mikata_arm/src/ws_mikata_arm_ros2",
     "remoteUser": "ros",
     "initializeCommand": "xhost +local:docker",
     "shutdownAction": "stopCompose",
