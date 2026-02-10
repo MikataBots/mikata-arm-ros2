@@ -48,4 +48,35 @@ ros2 launch moveit_resources_panda_moveit_config demo.launch.py
 
 これらが確認できれば、MoveIt2とX11転送（GUI表示）が正しく動作しています。
 
+## colcon成果物（build/install/log）のクリーン
+
+このリポジトリのコンテナ設定では、起動高速化のため `build/ install/ log/` はDockerの名前付きボリュームとして `/home/ros/ws_mikata_arm/{build,install,log}` にマウントされています。
+そのため、コンテナ内で `rm -rf build/ install/ log/` を実行すると「Device or resource busy（マウントポイントのため削除不可）」になることがあります。
+
+### コンテナ内で「中身だけ」消す（推奨）
+
+コンテナ内で以下を実行します：
+
+```bash
+bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/clean_colcon_artifacts.sh
+```
+
+### 1コマンドで「クリーン→再ビルド」
+
+コンテナ内で以下を実行します：
+
+```bash
+bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/rebuild_colcon.sh
+```
+
+### ボリューム自体を削除して完全リセット（ホスト側）
+
+ホスト側で、リポジトリ直下から以下を実行します（`down -v` なのでボリュームが消えます）：
+
+```bash
+bash docker/reset_colcon_volumes.sh
+```
+
+その後、再度コンテナを起動してください。
+
 

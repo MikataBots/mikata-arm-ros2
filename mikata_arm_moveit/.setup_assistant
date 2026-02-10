@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: mikata_arm_description
+    relative_path: urdf/mikata_arm.urdf.xacro
+  srdf:
+    relative_path: config/mikata_arm.srdf
+  package_settings:
+    author_name: shibata
+    author_email: ""
+    generated_timestamp: 1770743918
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
