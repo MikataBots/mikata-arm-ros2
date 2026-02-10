@@ -21,6 +21,7 @@ ament_auto_package(
   controllers
   launch
   ros2_control
+  meshes
   rviz
   urdf
 )

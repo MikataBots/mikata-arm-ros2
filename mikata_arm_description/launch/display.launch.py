@@ -52,7 +52,7 @@ def generate_launch_description():
                 [
                     FindPackageShare("mikata_arm_description"),
                     "urdf",
-                    "mika_arm.urdf.xacro",
+                    "mikata_arm.urdf.xacro",
                 ]
             ),
             " ",
