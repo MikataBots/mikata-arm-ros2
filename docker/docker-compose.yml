@@ -21,6 +21,10 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       # リポジトリをワークスペースのsrcにリンク
       - ..:/home/ros/ws_mikata_arm/src/mikata-arm-ros2:cached
+      # ビルド成果物を永続化して起動時ビルドを高速化
+      - mikata_arm_build:/home/ros/ws_mikata_arm/build
+      - mikata_arm_install:/home/ros/ws_mikata_arm/install
+      - mikata_arm_log:/home/ros/ws_mikata_arm/log
       # DRI デバイス (OpenGL/GPU アクセス用)
       - /dev/dri:/dev/dri
     devices:
@@ -29,3 +33,8 @@ services:
     user: ros
     stdin_open: true
     tty: true
+
+volumes:
+  mikata_arm_build:
+  mikata_arm_install:
+  mikata_arm_log:
