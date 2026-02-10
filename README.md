@@ -47,3 +47,5 @@ ros2 launch moveit_resources_panda_moveit_config demo.launch.py
 - ✅ 「Execute」ボタンで計画した経路を実行できる
 
 これらが確認できれば、MoveIt2とX11転送（GUI表示）が正しく動作しています。
+
+

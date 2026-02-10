@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="mikata_arm" params="prefix parent *origin">
+
+  <!-- material color setting -->
+  <material name="#ffffff">
+    <color rgba="1.000 1.000 1.000 1.0"/>
+  </material>
+
+  <joint name="base_link_to_floor_surface" type="fixed">
+    <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+    <parent link="${parent}"/>
+    <child link="floor_surface"/>
+  </joint>
+
+  <link name="floor_surface">
+    <inertial>
+      <origin xyz="1e-06 1.8e-05 -0.005002" rpy="0.0 0.0 0.0"/>
+      <mass value="0.000080925039"/>
+      <inertia ixx="0.00000013" ixy="-0" ixz="-0" iyy="0.00000013" iyz="0" izz="0.00000016"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mikata_arm_description/meshes/floor_surface.dae"/>
+      </geometry>
+      <material name="#ffffff"/>
+    </visual>
+  </link>
+
+  <joint name="floor_surface_to_Link1" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="floor_surface"/>
+    <child link="Link1"/>
+  </joint>
+
+  <link name="Link1">
+    <inertial>
+      <origin xyz="0.0 -0.0 0.021368" rpy="0.0 0.0 0.0"/>
+      <mass value="0.000001664356"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mikata_arm_description/meshes/Link1.dae"/>
+      </geometry>
+      <material name="#ffffff"/>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0 0.015" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <cylinder radius="0.015" length="0.03"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint1" type="revolute">
+    <origin xyz="0.0 0.0 0.03" rpy="0.0 0.0 0.0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="Link1"/>
+    <child link="Link2"/>
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <dynamics damping="0.18" friction="0.005"/>
+  </joint>
+
+  <gazebo reference="joint1">
+    <implicitSpringDamper>true</implicitSpringDamper>
+    <springStiffness>100</springStiffness>
+    <springReference>0.0</springReference>
+  </gazebo>
+
+  <link name="Link2">
+    <inertial>
+      <origin xyz="0.0 -0.0 0.107368" rpy="0.0 0.0 0.0"/>
+      <mass value="0.00000553095"/>
+      <inertia ixx="0.00000002" ixy="0" ixz="0" iyy="0.00000002" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mikata_arm_description/meshes/Link2.dae"/>
+      </geometry>
+      <material name="#ffffff"/>
+    </visual>
+  </link>
+
+  <joint name="joint2" type="revolute">
+    <origin xyz="0.0 -0.0 0.076" rpy="0.0 0.0 0.0"/>
+    <axis xyz="0 1 0"/>
+    <parent link="Link2"/>
+    <child link="Link3"/>
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <dynamics damping="0.18" friction="0.005"/>
+  </joint>
+  <gazebo reference="joint2">
+    <implicitSpringDamper>true</implicitSpringDamper>
+    <springStiffness>100</springStiffness>
+    <springReference>0.0</springReference>
+  </gazebo>
+
+  <link name="Link3">
+    <inertial>
+      <origin xyz="0.0 0.0 0.107368" rpy="0.0 0.0 0.0"/>
+      <mass value="0.000008777209"/>
+      <inertia ixx="0.00000004" ixy="0" ixz="-0" iyy="0.00000004" iyz="0" izz="0.00000002"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mikata_arm_description/meshes/Link3.dae"/>
+      </geometry>
+      <material name="#ffffff"/>
+    </visual>
+  </link>
+
+  <joint name="joint3" type="revolute">
+    <origin xyz="0.024 5e-05 0.168" rpy="0.0 0.0 0.0"/>
+    <axis xyz="0 1 0"/>
+    <parent link="Link3"/>
+    <child link="Link4"/>
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <dynamics damping="0.18" friction="0.005"/>
+  </joint>
+  <gazebo reference="joint3">
+    <implicitSpringDamper>true</implicitSpringDamper>
+    <springStiffness>100</springStiffness>
+    <springReference>0.0</springReference>
+  </gazebo>
+
+  <link name="Link4">
+    <inertial>
+      <origin xyz="0.021909 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="0.000002893634"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mikata_arm_description/meshes/Link4.dae"/>
+      </geometry>
+      <material name="#ffffff"/>
+    </visual>
+  </link>
+
+  <joint name="joint4" type="revolute">
+    <origin xyz="0.045 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <axis xyz="1 0 0"/>
+    <parent link="Link4"/>
+    <child link="Link5"/>
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <dynamics damping="0.18" friction="0.005"/>
+  </joint>
+  <gazebo reference="joint4">
+    <implicitSpringDamper>true</implicitSpringDamper>
+    <springStiffness>100</springStiffness>
+    <springReference>0.0</springReference>
+  </gazebo>
+
+  <link name="Link5">
+    <inertial>
+      <origin xyz="0.068461 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="0.000006380113"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0.00000001" iyz="0" izz="0.00000001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mikata_arm_description/meshes/Link5.dae"/>
+      </geometry>
+      <material name="#ffffff"/>
+    </visual>
+  </link>
+
+  <joint name="joint5" type="revolute">
+    <origin xyz="0.107 -1.1e-05 0.0" rpy="0.0 0.0 0.0"/>
+    <axis xyz="0 1 0"/>
+    <parent link="Link5"/>
+    <child link="Link6"/>
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <dynamics damping="0.18" friction="0.005"/>
+  </joint>
+  <gazebo reference="joint5">
+    <implicitSpringDamper>true</implicitSpringDamper>
+    <springStiffness>100</springStiffness>
+    <springReference>0.0</springReference>
+  </gazebo>
+
+  <link name="Link6">
+    <inertial>
+      <origin xyz="0.021922 -0.0 -0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="0.000002894338"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mikata_arm_description/meshes/Link6.dae"/>
+      </geometry>
+      <material name="#ffffff"/>
+    </visual>
+  </link>
+
+  <joint name="gripper_joint" type="revolute">
+    <origin xyz="0.045 2.1e-05 0.0" rpy="0.0 0.0 0.0"/>
+    <axis xyz="1 0 0"/>
+    <parent link="Link6"/>
+    <child link="gripper_base"/>
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <dynamics damping="0.18" friction="0.005"/>
+  </joint>
+  <gazebo reference="joint6">
+    <implicitSpringDamper>true</implicitSpringDamper>
+    <springStiffness>100</springStiffness>
+    <springReference>0.0</springReference>
+  </gazebo>
+
+  <!-- ここからグリッパー -->
+
+  <link name="gripper_base">
+    <inertial>
+      <origin xyz="0.037354 -0.000864 -0.008034" rpy="0.0 0.0 0.0"/>
+      <mass value="0.000008321545"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mikata_arm_description/meshes/Link7.dae"/>
+      </geometry>
+      <material name="#ffffff"/>
+    </visual>
+  </link>
+
+  <joint name="gripper_sub1" type="revolute">
+    <origin xyz="0.045 0.0148 -0.011" rpy="0.0 0.0 0.0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="gripper_base"/>
+    <child link="gripper_link1"/>
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <dynamics damping="0.18" friction="0.005"/>
+  </joint>
+  <gazebo reference="gripper_sub1">
+    <implicitSpringDamper>true</implicitSpringDamper>
+    <springStiffness>100</springStiffness>
+    <springReference>0.0</springReference>
+  </gazebo>
+
+  <link name="gripper_link1">
+    <inertial>
+      <origin xyz="0.007549 0.007549 -0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="0.000001874853"/>
+      <inertia ixx="0" ixy="-0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mikata_arm_description/meshes/Link8.dae"/>
+      </geometry>
+      <material name="#ffffff"/>
+    </visual>
+  </link>
+
+  <joint name="gripper_sub2" type="revolute">
+    <origin xyz="0.045 -0.0172 -0.011" rpy="0.0 0.0 0.0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="gripper_base"/>
+    <child link="gripper_link2"/>
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <dynamics damping="0.18" friction="0.005"/>
+  </joint>
+  <gazebo reference="gripper_sub2">
+    <implicitSpringDamper>true</implicitSpringDamper>
+    <springStiffness>100</springStiffness>
+    <springReference>0.0</springReference>
+  </gazebo>
+
+  <link name="gripper_link2">
+    <inertial>
+      <origin xyz="0.007549 -0.007549 -0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="0.000001874853"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mikata_arm_description/meshes/Link9.dae"/>
+      </geometry>
+      <material name="#ffffff"/>
+    </visual>
+  </link>
+
+  </xacro:macro>
+</robot>

@@ -2,7 +2,7 @@
     "name": "MikataArm MoveIt2 Humble Dev",
     "dockerComposeFile": "../docker/docker-compose.yml",
     "service": "mikata-arm-dev",
-    "workspaceFolder": "/home/ros/ws_mikata_arm",
+    "workspaceFolder": "/home/ros/ws_mikata_arm/src/mikata-arm-ros2",
     "remoteUser": "ros",
     "initializeCommand": "xhost +local:docker",
     "shutdownAction": "stopCompose",
@@ -11,8 +11,10 @@
             "extensions": [
                 "ms-vscode.cpptools",
                 "ms-python.python",
-                "ms-iot.vscode-ros",
+                "ms-vscode.cmake-tools",
+                "ranch-hand-robotics.rde-pack",
                 "zachflower.uncrustify"
+                
             ],
             "settings": {
                 "terminal.integrated.defaultProfile.linux": "bash",
@@ -24,7 +26,5 @@
                 }
             }
         }
-    },
-    // コンテナ作成後にrosdepを更新する場合
-    // "postStartCommand": "source /opt/ros/humble/setup.bash && test -f /home/ros/ws_mikata_arm/install/setup.bash && source /home/ros/ws_mikata_arm/install/setup.bash || true"
+    }
 }
