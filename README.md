@@ -39,6 +39,7 @@ devcontainerが正しく設定され、MoveIt2とGUI表示が動作すること�
 ros2 launch moveit_resources_panda_moveit_config demo.launch.py
 ```
 
+
 ### 確認ポイント
 
 - ✅ RVizが起動してPandaロボットが表示される
@@ -47,6 +48,37 @@ ros2 launch moveit_resources_panda_moveit_config demo.launch.py
 - ✅ 「Execute」ボタンで計画した経路を実行できる
 
 これらが確認できれば、MoveIt2とX11転送（GUI表示）が正しく動作しています。
+
+## MikataArmのデモの動作確認
+
+このリポジトリのMoveIt設定（`mikata_arm_moveit`）を使って、MikataArmのRVizデモを起動します。
+
+1) （未ビルドの場合）ワークスペースをビルド
+
+```bash
+bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/rebuild_colcon.sh
+```
+
+2) overlay を反映
+
+```bash
+source /home/ros/ws_mikata_arm/install/setup.bash
+```
+
+3) デモ起動
+
+```bash
+ros2 launch mikata_arm_moveit demo.launch.py
+```
+
+#### トラブルシュート（ロボットが表示されないとき）
+
+- RVizで「ロボットが出ない」場合、まず `move_group` が落ちていないか確認してください。
+   - 目安: 起動ログに `process has died`（`move_group`）が出ていないこと
+   - RViz側で `robot_description_semantic` が見つからない（SRDFが読めない）系のエラーが出る場合、`move_group` 側の起動失敗が原因のことが多いです。
+- `InvalidParameterTypeException` で `move_group` が落ちる場合、YAMLの数値型（int/float）が原因になりえます。
+   - 例: `mikata_arm_moveit/config/joint_limits.yaml` の `max_velocity` / `max_acceleration` は `7` ではなく `7.0`、`0` ではなく `0.0` のように **浮動小数表記**に統一してください（MoveItが `double` として取得するため）。
+
 
 ## colcon成果物（build/install/log）のクリーン
 
