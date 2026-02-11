@@ -83,6 +83,13 @@
       </geometry>
       <material name="#ffffff"/>
     </visual>
+    <collision>
+      <origin xyz="0.0 0.0 0.0434" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.02 0.02 0.0869"/>
+      </geometry>
+    </collision>
+
   </link>
 
   <joint name="joint2" type="revolute">
@@ -112,6 +119,12 @@
       </geometry>
       <material name="#ffffff"/>
     </visual>
+    <collision>
+      <origin xyz="0.0145 0.0 0.0867" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.04 0.03 0.19"/>
+      </geometry>
+    </collision>
   </link>
 
   <joint name="joint3" type="revolute">
@@ -141,6 +154,12 @@
       </geometry>
       <material name="#ffffff"/>
     </visual>
+    <collision>
+      <origin xyz="0.02 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.05 0.02 0.02"/>
+      </geometry>
+    </collision>
   </link>
 
   <joint name="joint4" type="revolute">
@@ -170,6 +189,12 @@
       </geometry>
       <material name="#ffffff"/>
     </visual>
+    <collision>
+      <origin xyz="0.0585 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.117 0.02 0.02"/>
+      </geometry>
+    </collision>
   </link>
 
   <joint name="joint5" type="revolute">
@@ -199,6 +224,12 @@
       </geometry>
       <material name="#ffffff"/>
     </visual>
+    <collision>
+      <origin xyz="0.02 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.05 0.02 0.02"/>
+      </geometry>
+    </collision>
   </link>
 
   <joint name="gripper_joint" type="revolute">
@@ -230,6 +261,12 @@
       </geometry>
       <material name="#ffffff"/>
     </visual>
+    <collision>
+      <origin xyz="0.0275 -0.0012 -0.0035" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.055 0.052 0.027"/>
+      </geometry>
+    </collision>
   </link>
 
   <joint name="gripper_sub1" type="revolute">
@@ -259,6 +296,12 @@
       </geometry>
       <material name="#ffffff"/>
     </visual>
+    <collision>
+      <origin xyz="0.012 0.012 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.034 0.034 0.012"/>
+      </geometry>
+    </collision>
   </link>
 
   <joint name="gripper_sub2" type="revolute">
@@ -288,6 +331,12 @@
       </geometry>
       <material name="#ffffff"/>
     </visual>
+    <collision>
+      <origin xyz="0.012 -0.012 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.034 0.034 0.012"/>
+      </geometry>
+    </collision>  
   </link>
 
   </xacro:macro>
