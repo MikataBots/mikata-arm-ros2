@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     python3-argcomplete \
     python3-vcstool \
     python3-rosdep \
+    ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
     && rm -rf /var/lib/apt/lists/*
 
 # 開発用ユーザー (ros) の作成
@@ -44,6 +45,10 @@ RUN if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then rosdep init
 # ROS 2の環境設定を.bashrcに追加
 USER $USERNAME
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+
+# CycloneDDS を既定のミドルウェアに設定
+ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc
 
 # ROS2 CLI / colcon のTAB補完 (argcomplete)
 RUN echo 'eval "$(register-python-argcomplete3 ros2)"' >> ~/.bashrc \
