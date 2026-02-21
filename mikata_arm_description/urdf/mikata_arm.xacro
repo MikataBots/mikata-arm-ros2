@@ -232,7 +232,7 @@
     </collision>
   </link>
 
-  <joint name="gripper_joint" type="revolute">
+  <joint name="joint6" type="revolute">
     <origin xyz="0.045 2.1e-05 0.0" rpy="0.0 0.0 0.0"/>
     <axis xyz="1 0 0"/>
     <parent link="Link6"/>

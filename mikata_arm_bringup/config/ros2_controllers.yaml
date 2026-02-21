@@ -22,7 +22,7 @@ mikata_arm_controller:
       - joint3
       - joint4
       - joint5
-      - gripper_joint
+      - joint6
     command_interfaces:
       - position
     state_interfaces:
