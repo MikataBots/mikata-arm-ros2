@@ -51,7 +51,7 @@ ros2 launch moveit_resources_panda_moveit_config demo.launch.py
 
 ## MikataArmのデモの動作確認
 
-このリポジトリのMoveIt設定（`mikata_arm_moveit`）を使って、MikataArmのRVizデモを起動します。
+このリポジトリの3分割構成（`mikata_arm_description` / `mikata_arm_moveit` / `mikata_arm_bringup`）を使って、MikataArmのRVizデモを起動します。
 
 1) （未ビルドの場合）ワークスペースをビルド
 
@@ -68,7 +68,7 @@ source /home/ros/ws_mikata_arm/install/setup.bash
 3) デモ起動
 
 ```bash
-ros2 launch mikata_arm_moveit demo.launch.py
+ros2 launch mikata_arm_bringup bringup.launch.py
 ```
 
 #### トラブルシュート（ロボットが表示されないとき）
@@ -110,5 +110,4 @@ bash docker/reset_colcon_volumes.sh
 ```
 
 その後、再度コンテナを起動してください。
-
 
