@@ -1,7 +1,7 @@
 # Default initial positions for mikata_arm's ros2_control fake system
 
 initial_positions:
-  gripper_joint: 0
+  joint6: 0
   gripper_sub1: 0
   gripper_sub2: 0
   joint1: 0
