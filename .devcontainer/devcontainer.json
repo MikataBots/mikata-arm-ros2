@@ -14,7 +14,6 @@
                 "ms-vscode.cmake-tools",
                 "ranch-hand-robotics.rde-pack",
                 "zachflower.uncrustify"
-                
             ],
             "settings": {
                 "terminal.integrated.defaultProfile.linux": "bash",
