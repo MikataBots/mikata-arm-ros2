@@ -1,0 +1,48 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/image/Dockerfile
+          push: false
+          load: true
+          tags: mikata-arm-ros2:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: colcon build
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/home/ros/ws_mikata_arm/src/mikata-arm-ros2:ro \
+            --entrypoint "" \
+            mikata-arm-ros2:ci \
+            bash -c "
+              set -e
+              source /opt/ros/humble/setup.bash
+              cd /home/ros/ws_mikata_arm
+              mkdir -p build install log
+              colcon build \
+                --base-paths src \
+                --cmake-args -DCMAKE_BUILD_TYPE=Release \
+                2>&1
+            "
