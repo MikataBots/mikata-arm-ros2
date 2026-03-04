@@ -1,4 +1,5 @@
 # mikata-arm-ros2
+[![Build](https://github.com/MikataBots/mikata-arm-ros2/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/MikataBots/mikata-arm-ros2/actions/workflows/build.yml)
 
 MikataArmロボット用のROS 2パッケージ（MoveIt2対応）
 
