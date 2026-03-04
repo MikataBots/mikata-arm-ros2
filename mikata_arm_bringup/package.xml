@@ -4,9 +4,10 @@
   <name>mikata_arm_bringup</name>
   <version>0.1.0</version>
   <description>Bringup package for MikataArm (ros2_control + MoveIt launch orchestration)</description>
-
+  <author email="shiba.8ro@gmail.com">Yoshihiro Shibata</author>
+  <maintainer email="shiba.8ro@gmail.com">Yoshihiro Shibata</maintainer>
   <maintainer email="takumi1988okamoto@gmail.com">Takumi Okamoto</maintainer>
-  <author email="takumi1988okamoto@gmail.com">Takumi Okamoto</author>
+
 
   <license>TODO: License declaration</license>
 

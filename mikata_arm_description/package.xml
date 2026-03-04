@@ -4,10 +4,9 @@
   <name>mikata_arm_description</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
+  <author email="shiba.8ro@gmail.com">Yoshihiro Shibata</author>
   <maintainer email="shiba.8ro@gmail.com">Yoshihiro Shibata</maintainer>
   <maintainer email="takumi1988okamoto@gmail.com">Takumi Okamoto</maintainer>
-  <author email="shiba.8ro@gmail.com">Yoshihiro Shibata</author>
-  <author email="takumi1988okamoto@gmail.com">Takumi Okamoto</author>
 
   <license>TODO: License declaration</license>
 

@@ -6,10 +6,9 @@
   <description>
      An automatically generated package with all the configuration and launch files for using the mikata_arm with the MoveIt Motion Planning Framework
   </description>
+  <author email="shiba.8ro@gmail.com">Yoshihiro Shibata</author>
   <maintainer email="shiba.8ro@gmail.com">Yoshihiro Shibata</maintainer>
   <maintainer email="takumi1988okamoto@gmail.com">Takumi Okamoto</maintainer>
-  <author email="shiba.8ro@gmail.com">Yoshihiro Shibata</author>
-  <author email="takumi1988okamoto@gmail.com">Takumi Okamoto</author>
 
   <license>TODO: License declaration</license>
 
