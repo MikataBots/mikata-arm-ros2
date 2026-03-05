@@ -2,6 +2,47 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:macro name="mikata_arm" params="prefix parent *origin">
 
+  <!-- ========================================== -->
+  <!-- Joint Limits Configuration (in degrees)    -->
+  <!-- ========================================== -->
+
+  <!-- Degree to Radian conversion -->
+  <xacro:property name="deg_to_rad" value="${pi/180.0}" />
+
+  <!-- Joint1: Position limits (degrees) -->
+  <xacro:property name="joint1_lower_deg" value="-175" />
+  <xacro:property name="joint1_upper_deg" value="175" />
+
+  <!-- Joint2: Position limits (degrees) -->
+  <xacro:property name="joint2_lower_deg" value="-145" />
+  <xacro:property name="joint2_upper_deg" value="90" />
+
+  <!-- Joint3: Position limits (degrees) -->
+  <xacro:property name="joint3_lower_deg" value="-80" />
+  <xacro:property name="joint3_upper_deg" value="90" />
+
+  <!-- Joint4: Position limits (degrees) -->
+  <xacro:property name="joint4_lower_deg" value="-175" />
+  <xacro:property name="joint4_upper_deg" value="175" />
+
+  <!-- Joint5: Position limits (degrees) -->
+  <xacro:property name="joint5_lower_deg" value="-110" />
+  <xacro:property name="joint5_upper_deg" value="100" />
+
+  <!-- Joint6: Position limits (degrees) -->
+  <xacro:property name="joint6_lower_deg" value="-175" />
+  <xacro:property name="joint6_upper_deg" value="175" />
+
+  <!-- Gripper joints: Position limits (degrees) -->
+  <xacro:property name="gripper_lower_deg" value="-45" />
+  <xacro:property name="gripper_upper_deg" value="45" />
+
+  <!-- Common properties for all joints -->
+  <xacro:property name="joint_effort" value="1.37" />
+  <xacro:property name="joint_velocity" value="7.0" />
+
+  <!-- ========================================== -->
+
   <!-- material color setting -->
   <material name="#ffffff">
     <color rgba="1.000 1.000 1.000 1.0"/>
@@ -60,7 +101,7 @@
     <axis xyz="0 0 1"/>
     <parent link="Link1"/>
     <child link="Link2"/>
-    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <limit lower="${joint1_lower_deg * deg_to_rad}" upper="${joint1_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
     <dynamics damping="0.18" friction="0.005"/>
   </joint>
 
@@ -97,7 +138,7 @@
     <axis xyz="0 1 0"/>
     <parent link="Link2"/>
     <child link="Link3"/>
-    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <limit lower="${joint2_lower_deg * deg_to_rad}" upper="${joint2_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
     <dynamics damping="0.18" friction="0.005"/>
   </joint>
   <gazebo reference="joint2">
@@ -132,7 +173,7 @@
     <axis xyz="0 1 0"/>
     <parent link="Link3"/>
     <child link="Link4"/>
-    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <limit lower="${joint3_lower_deg * deg_to_rad}" upper="${joint3_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
     <dynamics damping="0.18" friction="0.005"/>
   </joint>
   <gazebo reference="joint3">
@@ -167,7 +208,7 @@
     <axis xyz="1 0 0"/>
     <parent link="Link4"/>
     <child link="Link5"/>
-    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <limit lower="${joint4_lower_deg * deg_to_rad}" upper="${joint4_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
     <dynamics damping="0.18" friction="0.005"/>
   </joint>
   <gazebo reference="joint4">
@@ -202,7 +243,7 @@
     <axis xyz="0 1 0"/>
     <parent link="Link5"/>
     <child link="Link6"/>
-    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <limit lower="${joint5_lower_deg * deg_to_rad}" upper="${joint5_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
     <dynamics damping="0.18" friction="0.005"/>
   </joint>
   <gazebo reference="joint5">
@@ -237,7 +278,7 @@
     <axis xyz="1 0 0"/>
     <parent link="Link6"/>
     <child link="gripper_base"/>
-    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <limit lower="${joint6_lower_deg * deg_to_rad}" upper="${joint6_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
     <dynamics damping="0.18" friction="0.005"/>
   </joint>
   <gazebo reference="joint6">
@@ -274,7 +315,7 @@
     <axis xyz="0 0 1"/>
     <parent link="gripper_base"/>
     <child link="gripper_link1"/>
-    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <limit lower="${gripper_lower_deg * deg_to_rad}" upper="${gripper_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
     <dynamics damping="0.18" friction="0.005"/>
   </joint>
   <gazebo reference="gripper_sub1">
@@ -309,7 +350,7 @@
     <axis xyz="0 0 1"/>
     <parent link="gripper_base"/>
     <child link="gripper_link2"/>
-    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="1.37" velocity="7.0"/>
+    <limit lower="${gripper_lower_deg * deg_to_rad}" upper="${gripper_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
     <dynamics damping="0.18" friction="0.005"/>
   </joint>
   <gazebo reference="gripper_sub2">
