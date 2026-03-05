@@ -352,6 +352,7 @@
     <child link="gripper_link2"/>
     <limit lower="${gripper_lower_deg * deg_to_rad}" upper="${gripper_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
     <dynamics damping="0.18" friction="0.005"/>
+    <mimic joint="gripper_sub1" multiplier="-1.0" offset="0"/>
   </joint>
   <gazebo reference="gripper_sub2">
     <implicitSpringDamper>true</implicitSpringDamper>
