@@ -5,6 +5,7 @@
     "workspaceFolder": "/home/ros/ws_mikata_arm/src/mikata-arm-ros2",
     "remoteUser": "ros",
     "initializeCommand": "xhost +local:docker",
+    "postCreateCommand": "bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/setup_history.sh",
     "shutdownAction": "stopCompose",
     "customizations": {
         "vscode": {
