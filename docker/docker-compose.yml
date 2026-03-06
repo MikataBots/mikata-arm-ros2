@@ -25,6 +25,8 @@ services:
       - mikata_arm_build:/home/ros/ws_mikata_arm/build
       - mikata_arm_install:/home/ros/ws_mikata_arm/install
       - mikata_arm_log:/home/ros/ws_mikata_arm/log
+      # Bashヒストリーを永続化
+      - mikata_arm_bash_history:/home/ros/.bash_history_volume
       # DRI デバイス (OpenGL/GPU アクセス用)
       - /dev/dri:/dev/dri
     devices:
@@ -38,3 +40,4 @@ volumes:
   mikata_arm_build:
   mikata_arm_install:
   mikata_arm_log:
+  mikata_arm_bash_history:

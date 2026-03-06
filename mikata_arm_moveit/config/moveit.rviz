@@ -12,7 +12,6 @@ Panels:
         - /RobotModel1
         - /RobotModel1/Mass Properties1
         - /RobotModel1/Description Topic1
-        - /RobotModel1/Links1
       Splitter Ratio: 0.5
     Tree Height: 424
   - Class: rviz_common/Help
@@ -235,7 +234,7 @@ Visualization Manager:
       Velocity_Scaling_Factor: 0.1
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
-      Collision Enabled: true
+      Collision Enabled: false
       Description File: ""
       Description Source: Topic
       Description Topic:
