@@ -18,9 +18,8 @@ endif()
 
 ament_auto_package(
   INSTALL_TO_SHARE
-  controllers
+  config
   launch
-  ros2_control
   meshes
   rviz
   urdf

@@ -3,27 +3,25 @@
 <package format="3">
   <name>mikata_arm_description</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <author email="shiba.8ro@gmail.com">Yoshihiro Shibata</author>
+  <description>URDF/Xacro, meshes, and launch files for the MikataArm robot description.</description>
   <maintainer email="shiba.8ro@gmail.com">Yoshihiro Shibata</maintainer>
-  <maintainer email="takumi1988okamoto@gmail.com">Takumi Okamoto</maintainer>
+  <maintainer email="takumi1988okamoto@gmail.com">Takumi Okamoto a.k.a MrBearing</maintainer>
 
-  <license>TODO: License declaration</license>
+  <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <exec_depend>dynamixel_hardware</exec_depend>
   <exec_depend>joint_state_publisher</exec_depend>
   <exec_depend>joint_state_publisher_gui</exec_depend>
-  <exec_depend>robot_state_publisher</exec_depend>
-  <exec_depend>xacro</exec_depend>
-  <exec_depend>urdf</exec_depend>
-  <exec_depend>rviz2</exec_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>ros2_control</exec_depend>
   <exec_depend>ros2_controllers</exec_depend>
-  <exec_depend>dynamixel_hardware</exec_depend>
-  <exec_depend>ldlidar_stl_description</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>xacro</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

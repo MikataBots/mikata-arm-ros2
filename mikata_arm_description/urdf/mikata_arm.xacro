@@ -18,15 +18,15 @@
   <xacro:property name="joint2_upper_deg" value="90" />
 
   <!-- Joint3: Position limits (degrees) -->
-  <xacro:property name="joint3_lower_deg" value="-80" />
-  <xacro:property name="joint3_upper_deg" value="90" />
+  <xacro:property name="joint3_lower_deg" value="-90" />
+  <xacro:property name="joint3_upper_deg" value="80" />
 
   <!-- Joint4: Position limits (degrees) -->
   <xacro:property name="joint4_lower_deg" value="-175" />
   <xacro:property name="joint4_upper_deg" value="175" />
 
   <!-- Joint5: Position limits (degrees) -->
-  <xacro:property name="joint5_lower_deg" value="-110" />
+  <xacro:property name="joint5_lower_deg" value="-100" />
   <xacro:property name="joint5_upper_deg" value="100" />
 
   <!-- Joint6: Position limits (degrees) -->
@@ -312,7 +312,7 @@
 
   <joint name="gripper_sub1" type="revolute">
     <origin xyz="0.045 0.0148 -0.011" rpy="0.0 0.0 0.0"/>
-    <axis xyz="0 0 1"/>
+    <axis xyz="0 0 -1"/>
     <parent link="gripper_base"/>
     <child link="gripper_link1"/>
     <limit lower="${gripper_lower_deg * deg_to_rad}" upper="${gripper_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
@@ -347,7 +347,7 @@
 
   <joint name="gripper_sub2" type="revolute">
     <origin xyz="0.045 -0.0172 -0.011" rpy="0.0 0.0 0.0"/>
-    <axis xyz="0 0 1"/>
+    <axis xyz="0 0 -1"/>
     <parent link="gripper_base"/>
     <child link="gripper_link2"/>
     <limit lower="${gripper_lower_deg * deg_to_rad}" upper="${gripper_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
