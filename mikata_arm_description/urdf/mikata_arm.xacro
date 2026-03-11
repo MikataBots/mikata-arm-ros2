@@ -312,7 +312,7 @@
 
   <joint name="gripper_sub1" type="revolute">
     <origin xyz="0.045 0.0148 -0.011" rpy="0.0 0.0 0.0"/>
-    <axis xyz="0 0 1"/>
+    <axis xyz="0 0 -1"/>
     <parent link="gripper_base"/>
     <child link="gripper_link1"/>
     <limit lower="${gripper_lower_deg * deg_to_rad}" upper="${gripper_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>
@@ -347,7 +347,7 @@
 
   <joint name="gripper_sub2" type="revolute">
     <origin xyz="0.045 -0.0172 -0.011" rpy="0.0 0.0 0.0"/>
-    <axis xyz="0 0 1"/>
+    <axis xyz="0 0 -1"/>
     <parent link="gripper_base"/>
     <child link="gripper_link2"/>
     <limit lower="${gripper_lower_deg * deg_to_rad}" upper="${gripper_upper_deg * deg_to_rad}" effort="${joint_effort}" velocity="${joint_velocity}"/>

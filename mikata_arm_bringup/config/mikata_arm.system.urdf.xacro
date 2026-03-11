@@ -3,8 +3,23 @@
   <xacro:arg name="prefix" default="" />
   <xacro:arg name="initial_positions_file" default="$(find mikata_arm_bringup)/config/initial_positions.yaml" />
 
-  <xacro:include filename="$(find mikata_arm_description)/urdf/mikata_arm.urdf.xacro" />
-  <xacro:include filename="$(find mikata_arm_bringup)/config/mikata_arm.ros2_control.xacro" />
+  <!-- Include robot model only (without ros2_control) -->
+  <xacro:include filename="$(find mikata_arm_description)/urdf/mikata_arm.xacro" />
+  <xacro:include filename="$(find mikata_arm_description)/config/mikata_arm.ros2_control.xacro" />
 
-  <xacro:mikata_arm_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)" />
+  <!-- Base link -->
+  <link name="$(arg prefix)base_link" />
+
+  <!-- Robot arm -->
+  <xacro:mikata_arm
+      prefix="$(arg prefix)"
+      parent="$(arg prefix)base_link">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:mikata_arm>
+
+  <!-- Hardware interface (single definition) -->
+  <xacro:mikata_arm_ros2_control
+    name="mikata_arm"
+    prefix="$(arg prefix)"
+    initial_positions_file="$(arg initial_positions_file)" />
 </robot>

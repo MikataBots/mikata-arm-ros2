@@ -6,7 +6,7 @@
   <xacro:include filename="$(find mikata_arm_description)/urdf/mikata_arm.xacro" />
 
   <!-- Import mikata_arm ros2_control description -->
-  <!-- <xacro:include filename="$(find mikata_arm_description)/ros2_control/mikata_arm.ros2_control.xacro" /> -->
+  <xacro:include filename="$(find mikata_arm_description)/config/mikata_arm.ros2_control.xacro" />
 
   <link name="$(arg prefix)base_link" />
 
@@ -18,7 +18,7 @@
         rpy="0 0 0" />
   </xacro:mikata_arm>
 
-  <!-- <xacro:mikata_arm_ros2_control
-    name="mikata_arm" prefix="$(arg prefix)" /> -->
+  <xacro:mikata_arm_ros2_control
+    name="mikata_arm" prefix="$(arg prefix)" />
 
 </robot>
