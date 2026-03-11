@@ -19,6 +19,12 @@ if [ ! -w "$WS_DIR/build" ] || [ ! -w "$WS_DIR/install" ] || [ ! -w "$WS_DIR/log
   sudo chown -R "$(id -u)":"$(id -g)" "$WS_DIR/build" "$WS_DIR/install" "$WS_DIR/log"
 fi
 
+# Keep bash history volume writable for postCreateCommand scripts and interactive shells.
+HISTORY_VOLUME="/home/ros/.bash_history_volume"
+if [ -d "$HISTORY_VOLUME" ] && [ ! -w "$HISTORY_VOLUME" ]; then
+  sudo chown -R "$(id -u)":"$(id -g)" "$HISTORY_VOLUME"
+fi
+
 # Build on container start so the environment is ready to use.
 # Skip build if install/setup.bash exists and no source files have changed since last build.
 if [ ! -d "$WS_DIR/src" ]; then

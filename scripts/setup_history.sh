@@ -27,6 +27,8 @@ commands=(
     "bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/rebuild_colcon.sh"
     "ros2 launch mikata_arm_bringup bringup.launch.py"
     "ros2 launch moveit_resources_panda_moveit_config demo.launch.py"
+    "ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=true"
+    "ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false"
     "colcon build --symlink-install"
     "colcon test"
     "ros2 topic list"

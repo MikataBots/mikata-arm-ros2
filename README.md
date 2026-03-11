@@ -7,13 +7,13 @@ MikataArmロボット用のROS 2パッケージ（MoveIt2対応）
 
 このプロジェクトはVS Code Dev Containersを使用して開発します。
 
-### 前提条件
+## 前提条件
 
 - Docker
 - VS Code
 - Dev Containers拡張機能
 
-### セットアップ
+## 1.セットアップ
 
 1. このリポジトリをクローン
    ```bash
@@ -28,7 +28,7 @@ MikataArmロボット用のROS 2パッケージ（MoveIt2対応）
 
 3. VS Codeで `Dev Containers: Reopen in Container` を実行
 
-## MoveIt2の動作確認
+## 2.MoveIt2の動作確認
 
 devcontainerが正しく設定され、MoveIt2とGUI表示が動作することを確認します。
 
@@ -39,7 +39,6 @@ devcontainerが正しく設定され、MoveIt2とGUI表示が動作すること�
 ```bash
 ros2 launch moveit_resources_panda_moveit_config demo.launch.py
 ```
-
 
 ### 確認ポイント
 
