@@ -29,7 +29,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && apt-get update \
     && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME
+    && chmod 0440 /etc/sudoers.d/$USERNAME \
+    && usermod -aG dialout $USERNAME
 
 # 依存リポジトリ & rosdep の導入をイメージビルド時に実行
 # - setup.bash 内部の相対パス計算を崩さないため、実ワークスペース配下に配置する

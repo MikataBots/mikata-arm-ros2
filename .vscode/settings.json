@@ -9,6 +9,8 @@
   "cSpell.words": [
     "bringup",
     "buildtool",
+    "colcon",
+    "dialout",
     "dynamixel",
     "Mikata",
     "moveit",
@@ -17,6 +19,7 @@
     "Shibata",
     "Takumi",
     "URDF",
+    "usermod",
     "xacro",
     "Yoshihiro"
   ]

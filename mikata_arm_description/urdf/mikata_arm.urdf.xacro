@@ -6,6 +6,7 @@
   <xacro:arg name="use_ros2_control" default="true" />
   <xacro:arg name="use_fake_hardware" default="false" />
   <xacro:arg name="initial_positions_file" default="$(find mikata_arm_description)/config/initial_positions.yaml" />
+  <xacro:arg name="usb_port" default="/dev/ttyUSB0" />
 
   <!-- Include robot model -->
   <xacro:include filename="$(find mikata_arm_description)/urdf/mikata_arm.xacro" />
@@ -31,7 +32,8 @@
       name="mikata_arm"
       prefix="$(arg prefix)"
       use_fake_hardware="$(arg use_fake_hardware)"
-      initial_positions_file="$(arg initial_positions_file)" />
+      initial_positions_file="$(arg initial_positions_file)"
+      usb_port="$(arg usb_port)" />
   </xacro:if>
 
 </robot>
