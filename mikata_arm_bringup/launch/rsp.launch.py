@@ -16,7 +16,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             "initial_positions_file",
             default_value=PathJoinSubstitution(
-                [FindPackageShare("mikata_arm_bringup"), "config", "initial_positions.yaml"]
+                [FindPackageShare("mikata_arm_description"), "config", "initial_positions.yaml"]
             ),
             description="Path to initial positions yaml",
         ),
@@ -30,7 +30,7 @@ def generate_launch_description():
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("mikata_arm_bringup"), "config", "mikata_arm.system.urdf.xacro"]
+                [FindPackageShare("mikata_arm_description"), "urdf", "mikata_arm.system.urdf.xacro"]
             ),
             " ",
             "initial_positions_file:=",

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mikata_arm">
   <xacro:arg name="prefix" default="" />
-  <xacro:arg name="initial_positions_file" default="$(find mikata_arm_bringup)/config/initial_positions.yaml" />
+  <xacro:arg name="initial_positions_file" default="$(find mikata_arm_description)/config/initial_positions.yaml" />
 
   <!-- Include robot model only (without ros2_control) -->
   <xacro:include filename="$(find mikata_arm_description)/urdf/mikata_arm.xacro" />
-  <xacro:include filename="$(find mikata_arm_description)/config/mikata_arm.ros2_control.xacro" />
+  <xacro:include filename="$(find mikata_arm_description)/urdf/mikata_arm.ros2_control.xacro" />
 
   <!-- Base link -->
   <link name="$(arg prefix)base_link" />

@@ -18,15 +18,15 @@
   <xacro:property name="joint2_upper_deg" value="90" />
 
   <!-- Joint3: Position limits (degrees) -->
-  <xacro:property name="joint3_lower_deg" value="-80" />
-  <xacro:property name="joint3_upper_deg" value="90" />
+  <xacro:property name="joint3_lower_deg" value="-90" />
+  <xacro:property name="joint3_upper_deg" value="80" />
 
   <!-- Joint4: Position limits (degrees) -->
   <xacro:property name="joint4_lower_deg" value="-175" />
   <xacro:property name="joint4_upper_deg" value="175" />
 
   <!-- Joint5: Position limits (degrees) -->
-  <xacro:property name="joint5_lower_deg" value="-110" />
+  <xacro:property name="joint5_lower_deg" value="-100" />
   <xacro:property name="joint5_upper_deg" value="100" />
 
   <!-- Joint6: Position limits (degrees) -->

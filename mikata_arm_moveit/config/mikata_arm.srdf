@@ -27,9 +27,9 @@
     <group_state name="rest" group="mikata_arm">
         <joint name="joint1" value="0"/>      <!-- 0 deg = 0 rad -->
         <joint name="joint2" value="-1.571"/>  <!-- 90 deg = 1.571 rad -->
-        <joint name="joint3" value="1.431"/>  <!-- 82 deg = 1.431 rad -->
+        <joint name="joint3" value="1.396"/>  <!-- 80 deg = 1.396 rad -->
         <joint name="joint4" value="0"/>      <!-- 0 deg = 0 rad -->
-        <joint name="joint5" value="0.436"/>  <!-- 25 deg = 0.436 rad -->
+        <joint name="joint5" value="0.2617"/>  <!-- 15 deg = 0.2617 rad -->
         <joint name="joint6" value="0"/>      <!-- 0 deg = 0 rad -->
     </group_state>
 
