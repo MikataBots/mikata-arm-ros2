@@ -40,7 +40,7 @@ devcontainerが正しく設定され、MoveIt2とGUI表示が動作すること�
 ros2 launch moveit_resources_panda_moveit_config demo.launch.py
 ```
 
-### 確認ポイント
+### 2.2. 確認ポイント
 
 - ✅ RVizが起動してPandaロボットが表示される
 - ✅ MotionPlanningプラグインでゴール位置を設定できる（インタラクティブマーカーをドラッグ）
@@ -51,7 +51,9 @@ ros2 launch moveit_resources_panda_moveit_config demo.launch.py
 
 ## 3. MikataArmのモデルをrviz上で表示させて動作確認する
 
-MikataArmのデモを起動する方法を示します。
+シミュレーションモードでMikataArmの動作を確認します。
+
+### 3.1. シミュレーションモードでのデモ起動
 
 1) （未ビルドの場合）ワークスペースをビルド
 
@@ -67,14 +69,13 @@ source /home/ros/ws_mikata_arm/install/setup.bash
 
 3) デモ起動
 
-MikataArmに接続せず、動作確認を行います。以下のコマンドを実行してください。
+MikataArmに接続せず、シミュレーションモードで動作確認を行います。
 
 ```bash
 ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=true
 ```
 
-
-### トラブルシュート（ロボットが表示されないとき）
+### 3.2. トラブルシュート（ロボットが表示されないとき）
 
 - RVizで「ロボットが表示されない」場合、まず `move_group` が落ちていないか確認してください。
    - 目安: 起動ログに `process has died`（`move_group`）が出ていないこと
@@ -85,19 +86,19 @@ ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=true
 
 ## 4. MikataArmに接続してデモを実行する
 
+実機のMikataArmに接続してデモを実行する手順を説明します。
+
 ### 4.1. デバイスのパーミッション設定
 
 実機のMikataArmに接続するには、USBシリアルデバイスへのアクセス権限が必要です。
 
 > **注意**: このプロジェクトのDocker設定では `privileged: true` が有効なため、USBデバイス（`/dev/ttyUSB0` など）はコンテナから自動的に見えています。また、Dockerイメージのビルド時に `ros` ユーザーを `dialout` グループに追加しているため、**通常は追加の設定は不要**です。
 
-#### コンテナを最新バージョンにリビルド
-
 既存のコンテナを使用している場合は、最新のDockerイメージでリビルドしてください：
 
+```
 VS Codeで `Dev Containers: Rebuild Container` を実行
-
-#### パーミッションの確認
+```
 
 コンテナ内で以下を実行して、設定が正しいか確認：
 
@@ -113,11 +114,36 @@ ls -l /dev/ttyUSB* /dev/ttyACM*
 
 通常は `/dev/ttyUSB0` ですが、接続ポートによっては `/dev/ttyACM0` などと表示される場合もあります。
 
-#### トラブルシューティング: デバイスが見つからない場合
+### 4.2. 実機への接続とデモ実行
 
-`ls -l /dev/ttyUSB* /dev/ttyACM*` を実行しても該当デバイスが見つからない場合、以下の手順で調査してください：
+1) install/setup.bashの実行
 
-1. **USBデバイスの接続確認**
+```bash
+source /home/ros/ws_mikata_arm/install/setup.bash
+```
+
+2) MikataArmに接続してデモを起動
+
+```bash
+ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false
+```
+
+デバイスが `/dev/ttyUSB0` 以外の場合は、`usb_port` パラメータを指定してください：
+
+```bash
+ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false usb_port:=/dev/ttyACM0
+```
+
+
+## 5. トラブルシューティング
+
+実機接続時に問題が発生した場合の対処法を説明します。
+
+### 5.1. USBデバイスが見つからない場合
+
+`ls -l /dev/ttyUSB* /dev/ttyACM*` を実行しても該当デバイスが見つからない場合、以下の手順で調査してください。
+
+#### 1. USBデバイスの接続確認
 
 ```bash
 # 接続されているUSBデバイスを確認
@@ -128,7 +154,7 @@ MikataArmが接続されている場合、以下のような出力が表示さ�
 - FTDI製のUSB-シリアル変換チップを使用している場合: `Future Technology Devices International`
 - その他のシリアル変換チップの場合: チップメーカー名（例: `Prolific`, `Silicon Labs`）
 
-2. **デバイスファイルの確認**
+#### 2. デバイスファイルの確認
 
 ```bash
 # すべてのシリアルデバイスを確認
@@ -140,7 +166,7 @@ dmesg | grep -i "tty"
 
 MikataArmを抜き差しして、どのデバイス名が追加/削除されるか確認してください。
 
-3. **デバイス名がttyUSB0以外の場合**
+#### 3. デバイス名がttyUSB0以外の場合
 
 デバイスが `/dev/ttyACM0` や `/dev/ttyUSB1` など、`/dev/ttyUSB0` 以外の名前の場合、起動時にパラメータで指定できます：
 
@@ -150,7 +176,7 @@ ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false usb_po
 
 または、設定ファイルを直接編集する場合は、[mikata_arm_description/urdf/mikata_arm.ros2_control.xacro](mikata_arm_description/urdf/mikata_arm.ros2_control.xacro#L9) の `usb_port` パラメータを変更してください。
 
-#### トラブルシューティング: dialoutグループに所属していない場合
+### 5.2. dialoutグループの権限問題
 
 古いコンテナを使用している場合や、何らかの理由で `dialout` グループに所属していない場合は、以下のコマンドを実行：
 
@@ -167,7 +193,7 @@ docker restart mikata-arm-ros2-dev
 
 VS Codeで再接続してください。
 
-#### トラブルシューティング: Permission deniedエラーが出る場合
+### 5.3. Permission deniedエラー
 
 `dialout` グループに所属しても「Permission denied」エラーが出る場合、デバイスのパーミッションを確認してください：
 
@@ -193,33 +219,12 @@ sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
 
-### 4.2. MikataArmに接続してデモの動作を確認する
 
-1) install/setup.bashの実行
+## 6. colcon成果物のクリーン方法
 
-```bash
-source /home/ros/ws_mikata_arm/install/setup.bash
-```
+このリポジトリのコンテナ設定では、起動高速化のため `build/ install/ log/` はDockerの名前付きボリュームとして `/home/ros/ws_mikata_arm/{build,install,log}` にマウントされています。そのため、コンテナ内で `rm -rf build/ install/ log/` を実行すると「Device or resource busy（マウントポイントのため削除不可）」になることがあります。
 
-2) MikataArmに接続して動作確認を行う場合は以下のコマンドを使用してください。
-
-```bash
-ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false
-```
-
-デバイスが `/dev/ttyUSB0` 以外の場合は、`usb_port` パラメータを指定してください：
-
-```bash
-ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false usb_port:=/dev/ttyACM0
-```
-
-
-## colcon成果物（build/install/log）のクリーン方法
-
-このリポジトリのコンテナ設定では、起動高速化のため `build/ install/ log/` はDockerの名前付きボリュームとして `/home/ros/ws_mikata_arm/{build,install,log}` にマウントされています。
-そのため、コンテナ内で `rm -rf build/ install/ log/` を実行すると「Device or resource busy（マウントポイントのため削除不可）」になることがあります。
-
-### コンテナ内で「中身だけ」消す（推奨）
+### 6.1. コンテナ内で「中身だけ」消す（推奨）
 
 コンテナ内で以下を実行します：
 
@@ -227,13 +232,10 @@ ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false usb_po
 bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/clean_colcon_artifacts.sh
 ```
 
-### 1コマンドで「クリーン→再ビルド」
+### 6.2. 1コマンドで「クリーン→再ビルド」
 
 コンテナ内で以下を実行します：
 
 ```bash
 bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/rebuild_colcon.sh
 ```
-
-
-
