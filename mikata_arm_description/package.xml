@@ -4,7 +4,6 @@
   <name>mikata_arm_description</name>
   <version>0.0.0</version>
   <description>URDF/Xacro, meshes, and launch files for the MikataArm robot description.</description>
-  <author email="shiba.8ro@gmail.com">Yoshihiro Shibata</author>
   <maintainer email="shiba.8ro@gmail.com">Yoshihiro Shibata</maintainer>
   <maintainer email="takumi1988okamoto@gmail.com">Takumi Okamoto a.k.a MrBearing</maintainer>
 
