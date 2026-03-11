@@ -1,2 +1,11 @@
-.vscode/
 .claude/
+
+# VS Code: ignore all by default, but keep shareable workspace settings
+.vscode/*
+!.vscode/settings.json
+!.vscode/c_cpp_properties.json
+
+# VS Code C/C++ extension browse database (local cache)
+.vscode/browse.vc.db
+.vscode/browse.vc.db-shm
+.vscode/browse.vc.db-wal
