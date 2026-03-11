@@ -1,0 +1,23 @@
+{
+  "ROS2.distro": "humble",
+  "python.autoComplete.extraPaths": [
+    "/opt/ros/humble/lib/python3.10/site-packages"
+  ],
+  "python.analysis.extraPaths": [
+    "/opt/ros/humble/lib/python3.10/site-packages"
+  ],
+  "cSpell.words": [
+    "bringup",
+    "buildtool",
+    "dynamixel",
+    "Mikata",
+    "moveit",
+    "rviz",
+    "schematypens",
+    "Shibata",
+    "Takumi",
+    "URDF",
+    "xacro",
+    "Yoshihiro"
+  ]
+}
