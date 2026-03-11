@@ -14,6 +14,11 @@ def generate_launch_description():
             description="Use simulation time",
         ),
         DeclareLaunchArgument(
+            "use_fake_hardware",
+            default_value="false",
+            description="Use fake hardware (simulation mode)",
+        ),
+        DeclareLaunchArgument(
             "initial_positions_file",
             default_value=PathJoinSubstitution(
                 [FindPackageShare("mikata_arm_description"), "config", "initial_positions.yaml"]
@@ -23,6 +28,7 @@ def generate_launch_description():
     ]
 
     use_sim_time = LaunchConfiguration("use_sim_time")
+    use_fake_hardware = LaunchConfiguration("use_fake_hardware")
     initial_positions_file = LaunchConfiguration("initial_positions_file")
 
     robot_description_content = Command(
@@ -30,8 +36,13 @@ def generate_launch_description():
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("mikata_arm_description"), "urdf", "mikata_arm.system.urdf.xacro"]
+                [FindPackageShare("mikata_arm_description"), "urdf", "mikata_arm.urdf.xacro"]
             ),
+            " ",
+            "use_ros2_control:=true",
+            " ",
+            "use_fake_hardware:=",
+            use_fake_hardware,
             " ",
             "initial_positions_file:=",
             initial_positions_file,

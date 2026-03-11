@@ -14,6 +14,11 @@ def generate_launch_description():
             description="Use simulation time",
         ),
         DeclareLaunchArgument(
+            "use_fake_hardware",
+            default_value="false",
+            description="Use fake hardware (simulation mode)",
+        ),
+        DeclareLaunchArgument(
             "use_rviz",
             default_value="true",
             description="Launch RViz",
@@ -21,13 +26,17 @@ def generate_launch_description():
     ]
 
     use_sim_time = LaunchConfiguration("use_sim_time")
+    use_fake_hardware = LaunchConfiguration("use_fake_hardware")
     use_rviz = LaunchConfiguration("use_rviz")
 
     rsp_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution([FindPackageShare("mikata_arm_bringup"), "launch", "rsp.launch.py"])
         ),
-        launch_arguments={"use_sim_time": use_sim_time}.items(),
+        launch_arguments={
+            "use_sim_time": use_sim_time,
+            "use_fake_hardware": use_fake_hardware,
+        }.items(),
     )
 
     ros2_control_launch = IncludeLaunchDescription(
@@ -36,7 +45,10 @@ def generate_launch_description():
                 [FindPackageShare("mikata_arm_bringup"), "launch", "ros2_control.launch.py"]
             )
         ),
-        launch_arguments={"use_sim_time": use_sim_time}.items(),
+        launch_arguments={
+            "use_sim_time": use_sim_time,
+            "use_fake_hardware": use_fake_hardware,
+        }.items(),
     )
 
     spawn_controllers_launch = IncludeLaunchDescription(
