@@ -15,7 +15,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             "use_fake_hardware",
-            default_value="false",
+            default_value="true",
             description="Use fake hardware (simulation mode)",
         ),
         DeclareLaunchArgument(

@@ -5,317 +5,263 @@ MikataArmロボット用のROS 2パッケージ（MoveIt2対応）
 
 ## 開発環境
 
-このプロジェクトはVS Code Dev Containersを使用して開発しています。
+このプロジェクトはVS Code Dev Containersを使用して開発します。
 
 ## 前提条件
 
-以下のソフトウェアがインストールされている必要があります：
+- **Docker** 20.10以降 - [インストールガイド](https://docs.docker.com/engine/install/)
+- **VS Code** 1.70以降 - [ダウンロード](https://code.visualstudio.com/)
+- **Dev Containers拡張機能** - VS Codeの拡張機能ストアから「Dev Containers」をインストール
 
-### Docker
-
-- **バージョン**: Docker 20.10以降推奨
-- **インストール方法**:
-  - **Ubuntu/Debian**: [公式ガイド](https://docs.docker.com/engine/install/ubuntu/)
-  - **Windows**: [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
-  - **macOS**: [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
-
-インストール後、以下のコマンドでバージョンを確認してください：
-
-```bash
-docker --version
-# 出力例: Docker version 20.10.x, build xxxxx
-```
-
-### Visual Studio Code
-
-- **バージョン**: VS Code 1.70以降推奨
-- **インストール方法**: [公式サイト](https://code.visualstudio.com/)からダウンロード
-
-### Dev Containers拡張機能
-
-VS Codeの拡張機能です。セットアップ手順の中でインストール方法を説明します。
+> **詳細なセットアップ手順**: [docs/setup-detailed.md](docs/setup-detailed.md)を参照してください。
 
 ## 1. セットアップ
 
 ### 1.1. リポジトリのクローン
-
-ターミナルで以下のコマンドを実行してリポジトリをクローンします：
 
 ```bash
 git clone https://github.com/MikataBots/mikata-arm-ros2.git
 cd mikata-arm-ros2
 ```
 
-### 1.2. VS Codeで開く
+### 1.2. VS Codeでプロジェクトを開く
 
 ```bash
-# ~/ws_mikata_arm/src/mikata-arm-ros2 において
 code .
 ```
 
-VS Codeが起動します。
+### 1.3. Dev Containerで開く
 
-### 1.3. Dev Containers拡張機能のインストール（初回のみ）
-
-Dev Containers拡張機能がインストールされていない場合は、以下の手順でインストールしてください：
-
-1. VS Codeの左サイドバーで **拡張機能アイコン**（四角が4つ並んだアイコン）をクリック
-2. 検索ボックスに `Dev Containers` と入力
-3. **Dev Containers**（Microsoft製）を選択して **インストール** をクリック
-
-### 1.4. Dev Containerで開く
-
-以下のいずれかの方法でコンテナを起動します：
-
-**方法1: 通知から起動（推奨）**
-
-VS Codeがプロジェクトを開くと、右下に以下のような通知が表示されます：
+VS Codeでプロジェクトを開くと、右下に通知が表示されます：
 
 ```
-Folder contains a Dev Container configuration file. Reopen folder to develop in a container.
+Folder contains a Dev Container configuration file.
+Reopen folder to develop in a container.
 ```
 
-この通知の **Reopen in Container** ボタンをクリックしてください。
+**Reopen in Container** ボタンをクリックしてください。
 
-**方法2: コマンドパレットから起動**
+> **通知が表示されない場合**: `F1` → `Dev Containers: Reopen in Container` を実行
 
-1. `F1` キーまたは `Ctrl+Shift+P`（macOSは `Cmd+Shift+P`）でコマンドパレットを開く
-2. `Dev Containers: Reopen in Container` と入力して選択
+**初回起動時はDockerイメージのビルドに5〜10分かかります。** ステータスバーに進捗が表示されます。
 
-**方法3: 左下の緑色アイコンから起動**
+### 1.4. 起動確認
 
-1. VS Code左下の `><` アイコンをクリック
-2. メニューから **Reopen in Container** を選択
-
-### 1.5. コンテナのビルドと起動を待つ
-
-**初回起動時**は、Dockerイメージのビルドに **5〜10分程度** かかります。VS Code下部のステータスバーに進捗が表示されます：
-
-```
-Dev Containers: Building... (Step X/Y)
-```
-
-ビルドが完了すると、以下のような表示に変わります：
-
-```
-Dev Container: MikataArm MoveIt2 Humble Dev
-```
-
-VS Code左下の緑色アイコンが `Dev Container: MikataArm MoveIt2 Humble Dev` と表示されていれば、コンテナ内で開発できる状態です。
-
-**2回目以降**は、既存のイメージを使用するため **数秒〜1分程度** で起動します。
-
-### 1.6. 起動確認
-
-コンテナが正しく起動したか確認します。VS Code内のターミナルを開いて（`` Ctrl+` `` または `表示` → `ターミナル`）、以下を実行：
+コンテナが起動したら、ターミナルを開いて（`` Ctrl+` ``）確認します：
 
 ```bash
-# ROS 2のバージョンを確認
 ros2 --version
-
 # 出力例: ros2 cli version: 0.18.x
 ```
 
-ROS 2のバージョンが表示されれば、セットアップ完了です。
+> **セットアップの確認**: 環境が正しく動作するか確認する方法は、[docs/setup-detailed.md](docs/setup-detailed.md#セットアップの確認)を参照してください。
 
-### 1.7. セットアップのトラブルシューティング
+> **トラブルシューティング**: セットアップで問題が発生した場合は、[docs/setup-detailed.md](docs/setup-detailed.md#トラブルシューティング)を参照してください。
 
-#### コンテナのビルドが失敗する
 
-**エラー例**: `ERROR: failed to solve: process "/bin/sh -c ..."`
+## 2. MikataArmのシミュレーション
 
-**対処法**:
-1. Dockerが正しく起動しているか確認：
-   ```bash
-   docker ps
-   ```
-2. Dockerのディスク容量を確認（最低10GB以上の空き容量が必要）
-3. VS Codeを再起動してから再度 `Reopen in Container` を実行
+シミュレーションモードでMikataArmを動かします。
 
-#### X11転送（GUI表示）が動作しない
+### 2.1. ビルドとデモ起動
 
-**症状**: RVizなどのGUIアプリケーションが起動しない、または画面が表示されない
-
-**対処法**:
-
-**Linux**:
-```bash
-xhost +local:docker
-```
-
-**Windows/macOS（Docker Desktop使用時）**:
-- Docker Desktopの設定で、ファイル共有やリソース割り当てを確認
-- VcXsrvやXQuartzなどのX11サーバーが起動しているか確認
-
-#### コンテナが起動しない・途中で止まる
-
-**対処法**:
-1. Docker Desktopを再起動
-2. VS Codeの出力パネルで詳細なエラーログを確認：
-   - `表示` → `出力` → ドロップダウンから `Dev Containers` を選択
-3. 既存のコンテナを削除して再度ビルド：
-   ```bash
-   docker ps -a  # コンテナ一覧を確認
-   docker rm mikata-arm-ros2-dev  # 既存コンテナを削除
-   ```
-   その後、VS Codeで `Dev Containers: Rebuild Container` を実行
-
-## 2. MoveIt2の動作確認
-
-devcontainerが正しく設定され、MoveIt2とGUI表示が動作することを確認します。
-
-### 2.1. Pandaロボットのデモを起動
-
-コンテナ内のターミナルで以下のコマンドを実行：
-
-```bash
-ros2 launch moveit_resources_panda_moveit_config demo.launch.py
-```
-
-### 2.2. 確認ポイント
-
-- ✅ RVizが起動してPandaロボットが表示される
-- ✅ MotionPlanningプラグインでゴール位置を設定できる（インタラクティブマーカーをドラッグ）
-- ✅ 「Plan」ボタンで経路計画ができる
-- ✅ 「Execute」ボタンで計画した経路を実行できる
-
-これらが確認できれば、MoveIt2とX11転送（GUI表示）が正しく動作しています。
-
-## 3. MikataArmのモデルをrviz上で表示させて動作確認する
-
-シミュレーションモードでMikataArmの動作を確認します。
-
-### 3.1. シミュレーションモードでのデモ起動
-
-1) （未ビルドの場合）ワークスペースをビルド
-
-ワークスペースのルートディレクトリに移動してからビルドします：
+1) ワークスペースをビルド
 
 ```bash
 cd /home/ros/ws_mikata_arm
 colcon build --symlink-install
 ```
 
-2) install/setup.bashの実行
+2) セットアップスクリプトを読み込む
 
 ```bash
 source /home/ros/ws_mikata_arm/install/setup.bash
 ```
 
-3) デモ起動
-
-MikataArmに接続せず、シミュレーションモードで動作確認を行います。
+3) シミュレーションモードでデモを起動
 
 ```bash
 ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=true
 ```
 
-### 3.2. トラブルシュート（ロボットが表示されないとき）
+### 2.2. RVizでの操作確認
 
-- RVizで「ロボットが表示されない」場合、まず `move_group` が落ちていないか確認してください。
-   - 目安: 起動ログに `process has died`（`move_group`）が出ていないこと
-   - RViz側で `robot_description_semantic` が見つからない（SRDFが読めない）系のエラーが出る場合、`move_group` 側の起動失敗が原因のことが多いです。
-- `InvalidParameterTypeException` で `move_group` が落ちる場合、YAMLの数値型（int/float）が原因になりえます。
-   - 例: `mikata_arm_moveit/config/joint_limits.yaml` の `max_velocity` / `max_acceleration` は `7` ではなく `7.0`、`0` ではなく `0.0` のように **浮動小数表記**に統一してください（MoveItが `double` として取得するため）。
+デモが起動すると、RVizウィンドウが表示されます。
+
+**期待される表示**:
+- 左側: MikataArmのロボットモデル（6軸アーム + グリッパー）
+- 右側: MotionPlanningプラグインのコントロールパネル
+
+**基本的な操作手順**:
+
+1. **ゴール位置の設定**
+   - 青色の球体（インタラクティブマーカー）をドラッグして、目標位置を設定
+   - マーカーの矢印をドラッグすると、軸に沿って移動
+   - リング部分をドラッグすると、回転
+
+2. **経路計画**
+   - MotionPlanningパネルの **Planning** タブを開く
+   - **Plan** ボタンをクリック
+   - 半透明なロボットの動作が表示されれば経路計画成功
+
+3. **実行**
+   - **Execute** ボタンをクリック
+   - ロボットが計画された経路に沿って動く
+
+4. **グリッパーの操作**
+   - **Planning Group** で `hand` を選択
+   - **Select Goal State** で `open` または `close` を選択
+   - **Plan & Execute** をクリック
+
+### 2.3. トラブルシュート
+
+**ロボットが表示されない**
+
+- RVizのFixedFrameが `world` または `base_link` に設定されているか確認
+- ターミナルのログで `move_group` が正常に起動しているか確認
+  - `process has died [move_group]` が出ていないこと
+
+**`move_group` が起動失敗する**
+
+- `InvalidParameterTypeException` エラーが出る場合、YAMLファイルの数値型を確認
+  - [mikata_arm_moveit/config/joint_limits.yaml](mikata_arm_moveit/config/joint_limits.yaml)の値は浮動小数表記（例: `7.0`）にする
 
 
-## 4. MikataArmに接続してデモを実行する
+## 3. 実機への接続
 
-実機のMikataArmに接続してデモを実行する手順を説明します。
+実機のMikataArmに接続してデモを実行します。
 
-> **前提**: 3章のシミュレーションモードでのビルドと動作確認が完了していることを確認してください。
+> **前提**: 2章のシミュレーションが正常に動作することを確認してください。
 
-### 4.1. デバイスのパーミッション設定
+### 3.1. ハードウェアのセットアップ
 
-実機のMikataArmに接続するには、USBシリアルデバイスへのアクセス権限が必要です。
+**デバイスの確認**:
 
-> **注意**: このプロジェクトのDocker設定では `privileged: true` が有効なため、USBデバイス（`/dev/ttyUSB0` など）はコンテナから自動的に見えています。また、Dockerイメージのビルド時に `ros` ユーザーを `dialout` グループに追加しているため、**通常は追加の設定は不要**です。
-
-既存のコンテナを使用している場合は、最新のDockerイメージでリビルドしてください：
-
-```
-VS Codeで `Dev Containers: Rebuild Container` を実行
-```
-
-コンテナ内で以下を実行して、設定が正しいか確認：
+MikataArmをUSBで接続し、デバイスが認識されているか確認します：
 
 ```bash
-# dialoutグループに所属しているか確認
-groups
-# 出力に "dialout" が含まれていればOK
-
-# デバイスを確認
 ls -l /dev/ttyUSB* /dev/ttyACM*
 # 出力例: crw-rw---- 1 root dialout 188, 0 Mar 12 10:00 /dev/ttyUSB0
 ```
 
-通常は `/dev/ttyUSB0` ですが、接続ポートによっては `/dev/ttyACM0` などと表示される場合もあります。
+通常は `/dev/ttyUSB0` ですが、`/dev/ttyACM0` などの場合もあります。
 
-### 4.2. 実機への接続とデモ実行
+**デバイスが見つからない場合**: [4.1章](#41-usbデバイスが見つからない場合)を参照
 
-1) install/setup.bashの実行
+**パーミッションの確認**:
+
+```bash
+groups
+# 出力に "dialout" が含まれていればOK
+```
+
+> **注意**: このプロジェクトのDockerイメージは、dialoutグループへの追加が自動で設定されています。古いコンテナを使用している場合は、`Dev Containers: Rebuild Container` でリビルドしてください。
+
+### 3.2. 実機でのデモ実行
+
+1) セットアップスクリプトを読み込む（未実行の場合）
 
 ```bash
 source /home/ros/ws_mikata_arm/install/setup.bash
 ```
 
-2) MikataArmに接続してデモを起動
+2) 実機モードでデモを起動
 
 ```bash
 ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false
 ```
 
-デバイスが `/dev/ttyUSB0` 以外の場合は、`usb_port` パラメータを指定してください：
+デバイスが `/dev/ttyUSB0` 以外の場合：
 
 ```bash
 ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false usb_port:=/dev/ttyACM0
 ```
 
+### 3.3. 実機での動作確認と注意点
 
-## 5. トラブルシューティング
+**起動時の確認**:
 
-実機接続時に問題が発生した場合の対処法を説明します。
+ターミナルに以下のようなログが表示されれば、実機との接続成功です：
 
-### 5.1. USBデバイスが見つからない場合
+```
+[ros2_control_node]: Loaded controller 'mikata_arm_controller'
+[ros2_control_node]: Loaded controller 'hand_controller'
+[ros2_control_node]: Configured and activated all controllers
+```
 
-`ls -l /dev/ttyUSB* /dev/ttyACM*` を実行しても該当デバイスが見つからない場合、以下の手順で調査してください。
+**実機操作時の注意点**:
+
+⚠️ **安全上の注意**:
+- 初めて動かす際は、緊急停止できる準備をしてください
+- ロボットの動作範囲に障害物や人がいないことを確認してください
+- 大きな移動をする前に、小さな動きでテストしてください
+
+**推奨される動作確認手順**:
+
+1. **グリッパーのテスト**
+   - Planning Group: `hand`
+   - Select Goal State: `open` を選択
+   - **Plan & Execute** をクリック
+   - `open` ↔ `close` を繰り返して動作確認
+
+2. **既定のポーズに移動**
+   - Planning Group: `mikata_arm`
+   - Select Goal State: `rest` を選択
+   - **Plan & Execute** をクリック
+   - ロボットが安全な姿勢（rest pose）に移動します
+
+3. **小さな動きでテスト**
+   - インタラクティブマーカーを **少しだけ** ドラッグ
+   - **Plan** でパスを確認
+   - 軌跡が問題なさそうなら **Execute**
+
+
+**トラブルシューティング**:
+- ロボットが動かない → [4章](#4-トラブルシューティング)を参照
+- 接続エラーが出る → USBポートとパーミッションを確認
+
+
+## 4. トラブルシューティング
+
+### 4.1. USBデバイスが見つからない場合
+
+`ls -l /dev/ttyUSB* /dev/ttyACM*` を実行してもデバイスが表示されない場合：
 
 #### 1. USBデバイスの接続確認
 
 ```bash
-# 接続されているUSBデバイスを確認
 lsusb
 ```
 
-MikataArmが接続されている場合、以下のような出力が表示されます：
-- FTDI製のUSB-シリアル変換チップを使用している場合: `Future Technology Devices International`
-- その他のシリアル変換チップの場合: チップメーカー名（例: `Prolific`, `Silicon Labs`）
+MikataArmが接続されていれば、以下のような出力が表示されます：
+- FTDI製チップ: `Future Technology Devices International`
+- その他のチップ: メーカー名（例: `Prolific`, `Silicon Labs`）
 
-#### 2. デバイスファイルの確認
+デバイスが表示されない場合、USBケーブルや接続を確認してください。
+
+#### 2. デバイスファイルの特定
 
 ```bash
 # すべてのシリアルデバイスを確認
 ls -l /dev/tty* | grep -E "(USB|ACM)"
 
-# または、dmesgでカーネルログを確認
+# またはdmesgでカーネルログを確認
 dmesg | grep -i "tty"
 ```
 
 MikataArmを抜き差しして、どのデバイス名が追加/削除されるか確認してください。
 
-#### 3. デバイス名がttyUSB0以外の場合
+#### 3. デバイス名が ttyUSB0 以外の場合
 
-デバイスが `/dev/ttyACM0` や `/dev/ttyUSB1` など、`/dev/ttyUSB0` 以外の名前の場合、起動時にパラメータで指定できます：
+起動時に `usb_port` パラメータで指定：
 
 ```bash
 ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false usb_port:=/dev/ttyACM0
 ```
 
-または、設定ファイルを直接編集する場合は、[mikata_arm_description/urdf/mikata_arm.ros2_control.xacro](mikata_arm_description/urdf/mikata_arm.ros2_control.xacro#L9) の `usb_port` パラメータを変更してください。
+### 4.2. dialoutグループの権限問題
 
-### 5.2. dialoutグループの権限問題
-
-古いコンテナを使用している場合や、何らかの理由で `dialout` グループに所属していない場合は、以下のコマンドを実行：
+古いコンテナを使用している場合：
 
 ```bash
 sudo usermod -aG dialout ros
@@ -330,9 +276,9 @@ docker restart mikata-arm-ros2-dev
 
 VS Codeで再接続してください。
 
-### 5.3. Permission deniedエラー
+### 4.3. Permission deniedエラー
 
-`dialout` グループに所属しても「Permission denied」エラーが出る場合、デバイスのパーミッションを確認してください：
+`dialout` グループに所属しても「Permission denied」が出る場合：
 
 ```bash
 ls -l /dev/ttyUSB0
@@ -344,10 +290,10 @@ ls -l /dev/ttyUSB0
 sudo chmod 666 /dev/ttyUSB0
 ```
 
-恒久的に解決するには、ホスト側でudevルールを設定（推奨）：
+**恒久的な解決（推奨）**: ホスト側でudevルールを設定
 
 ```bash
-# ホスト側で /etc/udev/rules.d/99-usb-serial.rules を作成
+# /etc/udev/rules.d/99-usb-serial.rules を作成
 sudo bash -c 'echo "KERNEL==\"ttyUSB*\", MODE=\"0666\"" > /etc/udev/rules.d/99-usb-serial.rules'
 sudo bash -c 'echo "KERNEL==\"ttyACM*\", MODE=\"0666\"" >> /etc/udev/rules.d/99-usb-serial.rules'
 
@@ -356,22 +302,22 @@ sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
 
+### 4.4. セットアップ関連の問題
 
-## 6. colcon成果物のクリーン方法
+セットアップ時の問題（コンテナビルド失敗、X11転送の問題など）については、[docs/setup-detailed.md](docs/setup-detailed.md#トラブルシューティング)を参照してください。
 
-このリポジトリのコンテナ設定では、起動高速化のため `build/ install/ log/` はDockerの名前付きボリュームとして `/home/ros/ws_mikata_arm/{build,install,log}` にマウントされています。そのため、コンテナ内で `rm -rf build/ install/ log/` を実行すると「Device or resource busy（マウントポイントのため削除不可）」になることがあります。
 
-### 6.1. コンテナ内で「中身だけ」消す（推奨）
+## 付録A: colcon成果物のクリーン方法
 
-コンテナ内で以下を実行します：
+このプロジェクトでは、`build/`、`install/`、`log/`がDockerボリュームとしてマウントされています。
+
+### A.1. ビルド成果物のクリーン
 
 ```bash
 bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/clean_colcon_artifacts.sh
 ```
 
-### 6.2. 1コマンドで「クリーン→再ビルド」
-
-コンテナ内で以下を実行します：
+### A.2. クリーン→再ビルド（1コマンド）
 
 ```bash
 bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/rebuild_colcon.sh
