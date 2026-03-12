@@ -5,28 +5,160 @@ MikataArmロボット用のROS 2パッケージ（MoveIt2対応）
 
 ## 開発環境
 
-このプロジェクトはVS Code Dev Containersを使用して開発します。
+このプロジェクトはVS Code Dev Containersを使用して開発しています。
 
 ## 前提条件
 
-- Docker
-- VS Code
-- Dev Containers拡張機能
+以下のソフトウェアがインストールされている必要があります：
+
+### Docker
+
+- **バージョン**: Docker 20.10以降推奨
+- **インストール方法**:
+  - **Ubuntu/Debian**: [公式ガイド](https://docs.docker.com/engine/install/ubuntu/)
+  - **Windows**: [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
+  - **macOS**: [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+
+インストール後、以下のコマンドでバージョンを確認してください：
+
+```bash
+docker --version
+# 出力例: Docker version 20.10.x, build xxxxx
+```
+
+### Visual Studio Code
+
+- **バージョン**: VS Code 1.70以降推奨
+- **インストール方法**: [公式サイト](https://code.visualstudio.com/)からダウンロード
+
+### Dev Containers拡張機能
+
+VS Codeの拡張機能です。セットアップ手順の中でインストール方法を説明します。
 
 ## 1. セットアップ
 
-1. このリポジトリをクローンする
-   ```bash
-   git clone <repository-url>
-   cd mikata-arm-ros2
-   ```
+### 1.1. リポジトリのクローン
 
-2. VS Codeで開く
-   ```bash
-   code .
-   ```
+ターミナルで以下のコマンドを実行してリポジトリをクローンします：
 
-3. VS Codeで `Dev Containers: Reopen in Container` を実行
+```bash
+git clone https://github.com/MikataBots/mikata-arm-ros2.git
+cd mikata-arm-ros2
+```
+
+### 1.2. VS Codeで開く
+
+```bash
+# ~/ws_mikata_arm/src/mikata-arm-ros2 において
+code .
+```
+
+VS Codeが起動します。
+
+### 1.3. Dev Containers拡張機能のインストール（初回のみ）
+
+Dev Containers拡張機能がインストールされていない場合は、以下の手順でインストールしてください：
+
+1. VS Codeの左サイドバーで **拡張機能アイコン**（四角が4つ並んだアイコン）をクリック
+2. 検索ボックスに `Dev Containers` と入力
+3. **Dev Containers**（Microsoft製）を選択して **インストール** をクリック
+
+### 1.4. Dev Containerで開く
+
+以下のいずれかの方法でコンテナを起動します：
+
+**方法1: 通知から起動（推奨）**
+
+VS Codeがプロジェクトを開くと、右下に以下のような通知が表示されます：
+
+```
+Folder contains a Dev Container configuration file. Reopen folder to develop in a container.
+```
+
+この通知の **Reopen in Container** ボタンをクリックしてください。
+
+**方法2: コマンドパレットから起動**
+
+1. `F1` キーまたは `Ctrl+Shift+P`（macOSは `Cmd+Shift+P`）でコマンドパレットを開く
+2. `Dev Containers: Reopen in Container` と入力して選択
+
+**方法3: 左下の緑色アイコンから起動**
+
+1. VS Code左下の `><` アイコンをクリック
+2. メニューから **Reopen in Container** を選択
+
+### 1.5. コンテナのビルドと起動を待つ
+
+**初回起動時**は、Dockerイメージのビルドに **5〜10分程度** かかります。VS Code下部のステータスバーに進捗が表示されます：
+
+```
+Dev Containers: Building... (Step X/Y)
+```
+
+ビルドが完了すると、以下のような表示に変わります：
+
+```
+Dev Container: MikataArm MoveIt2 Humble Dev
+```
+
+VS Code左下の緑色アイコンが `Dev Container: MikataArm MoveIt2 Humble Dev` と表示されていれば、コンテナ内で開発できる状態です。
+
+**2回目以降**は、既存のイメージを使用するため **数秒〜1分程度** で起動します。
+
+### 1.6. 起動確認
+
+コンテナが正しく起動したか確認します。VS Code内のターミナルを開いて（`` Ctrl+` `` または `表示` → `ターミナル`）、以下を実行：
+
+```bash
+# ROS 2のバージョンを確認
+ros2 --version
+
+# 出力例: ros2 cli version: 0.18.x
+```
+
+ROS 2のバージョンが表示されれば、セットアップ完了です。
+
+### 1.7. セットアップのトラブルシューティング
+
+#### コンテナのビルドが失敗する
+
+**エラー例**: `ERROR: failed to solve: process "/bin/sh -c ..."`
+
+**対処法**:
+1. Dockerが正しく起動しているか確認：
+   ```bash
+   docker ps
+   ```
+2. Dockerのディスク容量を確認（最低10GB以上の空き容量が必要）
+3. VS Codeを再起動してから再度 `Reopen in Container` を実行
+
+#### X11転送（GUI表示）が動作しない
+
+**症状**: RVizなどのGUIアプリケーションが起動しない、または画面が表示されない
+
+**対処法**:
+
+**Linux**:
+```bash
+xhost +local:docker
+```
+
+**Windows/macOS（Docker Desktop使用時）**:
+- Docker Desktopの設定で、ファイル共有やリソース割り当てを確認
+- VcXsrvやXQuartzなどのX11サーバーが起動しているか確認
+
+#### コンテナが起動しない・途中で止まる
+
+**対処法**:
+1. Docker Desktopを再起動
+2. VS Codeの出力パネルで詳細なエラーログを確認：
+   - `表示` → `出力` → ドロップダウンから `Dev Containers` を選択
+3. 既存のコンテナを削除して再度ビルド：
+   ```bash
+   docker ps -a  # コンテナ一覧を確認
+   docker rm mikata-arm-ros2-dev  # 既存コンテナを削除
+   ```
+   その後、VS Codeで `Dev Containers: Rebuild Container` を実行
 
 ## 2. MoveIt2の動作確認
 
@@ -57,7 +189,10 @@ ros2 launch moveit_resources_panda_moveit_config demo.launch.py
 
 1) （未ビルドの場合）ワークスペースをビルド
 
+ワークスペースのルートディレクトリに移動してからビルドします：
+
 ```bash
+cd /home/ros/ws_mikata_arm
 colcon build --symlink-install
 ```
 
@@ -87,6 +222,8 @@ ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=true
 ## 4. MikataArmに接続してデモを実行する
 
 実機のMikataArmに接続してデモを実行する手順を説明します。
+
+> **前提**: 3章のシミュレーションモードでのビルドと動作確認が完了していることを確認してください。
 
 ### 4.1. デバイスのパーミッション設定
 
