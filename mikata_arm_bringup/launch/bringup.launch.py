@@ -15,7 +15,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             "use_fake_hardware",
-            default_value="false",
+            default_value="true",
             description="Use fake hardware (simulation mode)",
         ),
         DeclareLaunchArgument(
@@ -23,11 +23,17 @@ def generate_launch_description():
             default_value="true",
             description="Launch RViz",
         ),
+        DeclareLaunchArgument(
+            "usb_port",
+            default_value="/dev/ttyUSB0",
+            description="USB port for Dynamixel connection",
+        ),
     ]
 
     use_sim_time = LaunchConfiguration("use_sim_time")
     use_fake_hardware = LaunchConfiguration("use_fake_hardware")
     use_rviz = LaunchConfiguration("use_rviz")
+    usb_port = LaunchConfiguration("usb_port")
 
     rsp_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -36,6 +42,7 @@ def generate_launch_description():
         launch_arguments={
             "use_sim_time": use_sim_time,
             "use_fake_hardware": use_fake_hardware,
+            "usb_port": usb_port,
         }.items(),
     )
 
@@ -48,6 +55,7 @@ def generate_launch_description():
         launch_arguments={
             "use_sim_time": use_sim_time,
             "use_fake_hardware": use_fake_hardware,
+            "usb_port": usb_port,
         }.items(),
     )
 

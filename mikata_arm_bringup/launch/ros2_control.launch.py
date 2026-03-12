@@ -25,11 +25,17 @@ def generate_launch_description():
             ),
             description="Path to initial positions yaml",
         ),
+        DeclareLaunchArgument(
+            "usb_port",
+            default_value="/dev/ttyUSB0",
+            description="USB port for Dynamixel connection",
+        ),
     ]
 
     use_sim_time = LaunchConfiguration("use_sim_time")
     use_fake_hardware = LaunchConfiguration("use_fake_hardware")
     initial_positions_file = LaunchConfiguration("initial_positions_file")
+    usb_port = LaunchConfiguration("usb_port")
 
     robot_description_content = Command(
         [
@@ -46,6 +52,9 @@ def generate_launch_description():
             " ",
             "initial_positions_file:=",
             initial_positions_file,
+            " ",
+            "usb_port:=",
+            usb_port,
         ]
     )
     robot_description = {"robot_description": ParameterValue(robot_description_content, value_type=str)}
