@@ -47,7 +47,7 @@ Reopen folder to develop in a container.
 
 ### 1.4. 起動確認
 
-コンテナが起動したら、ターミナルを開いて（`` Ctrl+` ``）確認します：
+コンテナが起動したら、VS Codeのターミナルを開いて、以下のコマンドで確認します：
 
 ```bash
 ros2 --version
