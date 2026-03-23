@@ -72,6 +72,8 @@ ros2 doctor
 
 ### 2.1. ビルドとデモ起動
 
+ビルドとデモの起動手順を示します。
+
 1) ワークスペースをビルド
 
 ```bash
@@ -99,26 +101,45 @@ ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=true
 - 左側: MikataArmのロボットモデル（6軸アーム + グリッパー）
 - 右側: MotionPlanningプラグインのコントロールパネル
 
+<div align="center">
+  <img src="docs/imgs/on_launch.png" width=600>
+</div>
+
 **基本的な操作手順**:
 
-1. **ゴール位置の設定**
+#### 1. **ゴール位置の設定**
+   - **Planning Group** のドロップダウンリストから `mikata_arm` を選択
    - 青色の球体（インタラクティブマーカー）をドラッグして、目標位置を設定
    - マーカーの矢印をドラッグすると、軸に沿って移動
    - リング部分をドラッグすると、回転
+<div align="center">
+  <img src="docs/imgs/control_mikata_arm.png" width=600>
+</div>
 
-2. **経路計画**
+#### 2. **経路計画**
    - MotionPlanningパネルの **Planning** タブを開く
    - **Plan** ボタンをクリック
    - 半透明なロボットの動作が表示されれば経路計画成功
+<div align="center">
+  <img src="docs/imgs/motion_planning_panel_execute.png" width=400>
+</div>
 
-3. **実行**
+#### 3. **実行**
    - **Execute** ボタンをクリック
    - ロボットが計画された経路に沿って動く
+<div align="center">
+   <img src="docs/imgs/motion_planning_panel_execute.png" width=400>
+</div>
 
-4. **グリッパーの操作**
-   - **Planning Group** で `hand` を選択
-   - **Select Goal State** で `open` または `close` を選択
+#### 4. **グリッパーの操作**
+   - **Planning Group** のドロップダウンリストから `hand` を選択
+   - **Goal State** で `open` または `close` を選択
    - **Plan & Execute** をクリック
+
+<div align="center">
+   <img src="docs/imgs/ready_open.png" width=400>
+   <img src="docs/imgs/ready_close.png" width=400>
+</div>
 
 ### 2.3. トラブルシュート
 
@@ -202,6 +223,12 @@ ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false usb_po
 - 初めて動かす際は、緊急停止できる準備をしてください
 - ロボットの動作範囲に障害物や人がいないことを確認してください
 - 大きな移動をする前に、小さな動きでテストしてください
+- プログラムは終了前に下記のrest姿勢に遷移させてからプログラム終了してください
+  - プログラムが終了するとアームが脱力して破損する可能性があります。
+
+<div align="center">
+   <img src="docs/imgs/rest.png" width=500>
+</div>
 
 **推奨される動作確認手順**:
 
