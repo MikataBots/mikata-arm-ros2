@@ -121,7 +121,7 @@ ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=true
    - **Plan** ボタンをクリック
    - 半透明なロボットの動作が表示されれば経路計画成功
 <div align="center">
-  <img src="docs/imgs/motion_planning_panel_execute.png" width=400>
+  <img src="docs/imgs/motion_planning_panel_plan.png" width=400>
 </div>
 
 #### 3. **実行**
