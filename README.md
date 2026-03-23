@@ -50,8 +50,15 @@ Reopen folder to develop in a container.
 コンテナが起動したら、VS Codeのターミナルを開いて、以下のコマンドで確認します：
 
 ```bash
-ros2 --version
-# 出力例: ros2 cli version: 0.18.x
+ros2 doctor
+
+# 出力例
+# $ros2 doctor
+# ...(中略)...
+# /opt/ros/humble/lib/python3.10/site-packages/ros2doctor/api/package.py: 119: UserWarning: Cannot find the latest versions of packages: pantilt_bot_description mikata_arm_bringup mikata_arm_moveit mikata_arm_description [...] Use `ros2 doctor --report` to see full list.
+# 
+# All 5 checks passed
+# 
 ```
 
 > **セットアップの確認**: 環境が正しく動作するか確認する方法は、[docs/setup-detailed.md](docs/setup-detailed.md#セットアップの確認)を参照してください。
@@ -64,6 +71,8 @@ ros2 --version
 シミュレーションモードでMikataArmを動かします。
 
 ### 2.1. ビルドとデモ起動
+
+ビルドとデモの起動手順を示します。
 
 1) ワークスペースをビルド
 
@@ -92,26 +101,45 @@ ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=true
 - 左側: MikataArmのロボットモデル（6軸アーム + グリッパー）
 - 右側: MotionPlanningプラグインのコントロールパネル
 
+<div align="center">
+  <img src="docs/imgs/on_launch.png" width=600>
+</div>
+
 **基本的な操作手順**:
 
-1. **ゴール位置の設定**
+#### 1. **ゴール位置の設定**
+   - **Planning Group** のドロップダウンリストから `mikata_arm` を選択
    - 青色の球体（インタラクティブマーカー）をドラッグして、目標位置を設定
    - マーカーの矢印をドラッグすると、軸に沿って移動
    - リング部分をドラッグすると、回転
+<div align="center">
+  <img src="docs/imgs/control_mikata_arm.png" width=600>
+</div>
 
-2. **経路計画**
+#### 2. **経路計画**
    - MotionPlanningパネルの **Planning** タブを開く
    - **Plan** ボタンをクリック
    - 半透明なロボットの動作が表示されれば経路計画成功
+<div align="center">
+  <img src="docs/imgs/motion_planning_panel_plan.png" width=400>
+</div>
 
-3. **実行**
+#### 3. **実行**
    - **Execute** ボタンをクリック
    - ロボットが計画された経路に沿って動く
+<div align="center">
+   <img src="docs/imgs/motion_planning_panel_execute.png" width=400>
+</div>
 
-4. **グリッパーの操作**
-   - **Planning Group** で `hand` を選択
-   - **Select Goal State** で `open` または `close` を選択
+#### 4. **グリッパーの操作**
+   - **Planning Group** のドロップダウンリストから `hand` を選択
+   - **Goal State** で `open` または `close` を選択
    - **Plan & Execute** をクリック
+
+<div align="center">
+   <img src="docs/imgs/ready_open.png" width=400>
+   <img src="docs/imgs/ready_close.png" width=400>
+</div>
 
 ### 2.3. トラブルシュート
 
@@ -195,6 +223,12 @@ ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false usb_po
 - 初めて動かす際は、緊急停止できる準備をしてください
 - ロボットの動作範囲に障害物や人がいないことを確認してください
 - 大きな移動をする前に、小さな動きでテストしてください
+- **プログラム終了前に**下記のrest姿勢に遷移させてからプログラム終了してください
+  - プログラムが終了するとアームが脱力して破損する可能性があります。
+
+<div align="center">
+   <img src="docs/imgs/rest.png" width=500>
+</div>
 
 **推奨される動作確認手順**:
 
