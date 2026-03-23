@@ -50,8 +50,15 @@ Reopen folder to develop in a container.
 コンテナが起動したら、VS Codeのターミナルを開いて、以下のコマンドで確認します：
 
 ```bash
-ros2 --version
-# 出力例: ros2 cli version: 0.18.x
+ros2 doctor
+
+# 出力例
+# $ros2 doctor
+# ...(中略)...
+# /opt/ros/humble/lib/python3.10/site-packages/ros2doctor/api/package.py: 119: UserWarning: Cannot find the latest versions of packages: pantilt_bot_description mikata_arm_bringup mikata_arm_moveit mikata_arm_description [...] Use `ros2 doctor --report` to see full list.
+# 
+# All 5 checks passed
+# 
 ```
 
 > **セットアップの確認**: 環境が正しく動作するか確認する方法は、[docs/setup-detailed.md](docs/setup-detailed.md#セットアップの確認)を参照してください。
