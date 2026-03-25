@@ -3,10 +3,10 @@ name: Build
 on:
   push:
     branches:
-      - main
+      - humble
   pull_request:
     branches:
-      - main
+      - humble
 
 jobs:
   build:
