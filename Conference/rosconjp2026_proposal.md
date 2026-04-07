@@ -37,7 +37,8 @@ ros2_control / MoveIt2による経路計画・実機制御に対応し、VS Code
 
 本講演では、DYNAMIXEL Xシリーズで構成される教育・研究用小型ロボットアーム「MikataArm」向けに、ROS 2 Humbleパッケージ **mikata-arm-ros2** を新規設計・実装し、オープンソースとして公開した取り組みを紹介します。
 
-MikataArmにはROS 2対応パッケージが存在しなかったため、ros2_control / MoveIt2を使用してパッケージを設計・構築しました。シミュレーションと実機をパラメータ一つで切り替えられる構成とし、Dev Containerによるワンクリック環境構築まで含めた、すぐに使える形での公開を目指しています。
+MikataArmにはROS 2対応パッケージが存在しなかったため、ros2_control / MoveIt2を使用してパッケージを設計・構築しました。シミュレーションと実機をパラメータ一つで切り替えられる構成とし、Dev Containerによるワンクリック環境構築まで含めた、高校生からROS 2を学び始められる形での公開を目指しています。
+
 
 - **リポジトリ**: [https://github.com/MikataBots/mikata-arm-ros2](https://github.com/MikataBots/mikata-arm-ros2)
 - **ライセンス**: Apache-2.0
