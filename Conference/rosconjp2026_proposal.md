@@ -18,7 +18,7 @@ mikata-arm-ros2
 > 採択された講演は、ウェブサイト等で講演の紹介として本項目に記載された情報が一般公開されます。
 
 
-YNAMIXEL Xシリーズで構成される教育・研究用ロボットアームMikataArmのROS 2（Humble）パッケージをオープンソースで新規開発・公開しました。
+DYNAMIXEL Xシリーズで構成される教育・研究用ロボットアームMikataArmのROS 2（Humble）パッケージをオープンソースで新規開発・公開しました。
 ros2_control / MoveIt2による経路計画・実機制御に対応し、VS Code Dev Containersによるワンクリック開発環境構築を実現しています。
 小型アームにおけるros2_controlフルスタック実装の設計判断と実践知見を共有します。
 
@@ -60,7 +60,7 @@ MikataArmにはROS 2対応パッケージが存在しなかったため、ros2_c
 ### 1. URDFの構築
 
 - URDF Kitchenを用いたURDFの作成
-- OnShapeを用いたURDFの作成
+- Onshapeを用いたURDFの作成
 
 ### 2. Dev Containerによる開発環境のコンテナ化
 
@@ -71,14 +71,13 @@ MikataArmにはROS 2対応パッケージが存在しなかったため、ros2_c
 
 ### 2. ros2_controlによるDYNAMIXEL制御
 
-ここは近藤さんのパッケージにお任せ
+[dynamixel-community/dynamixel_hardware](https://github.com/dynamixel-community/dynamixel_hardware)を用いて、ハードウェアとの接続を実現した
 
 ### 3. MoveIt2インテグレーションの実践
 
 - Movit Setup Assistant でSRDF生成からPlanning Groupの構成まで
 - グリッパーの `open`/`close` ステートの定義方法
 - 小型アーム特有の関節リミット設定と経路計画の注意点
-
 
 ### 4. 安全運用上の知見
 
