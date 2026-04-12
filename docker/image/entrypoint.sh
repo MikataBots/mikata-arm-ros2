@@ -3,14 +3,14 @@ set -euo pipefail
 
 # Ensure ROS 2 environment is available
 # NOTE: ROS setup scripts may reference unset vars; don't run them under `set -u`.
-if [ -f "/opt/ros/humble/setup.bash" ]; then
+if [ -f "/opt/ros/jazzy/setup.bash" ]; then
   # shellcheck disable=SC1091
   set +u
-  source "/opt/ros/humble/setup.bash"
+  source "/opt/ros/jazzy/setup.bash"
   set -u
 fi
 
-WS_DIR="/home/ros/ws_mikata_arm"
+WS_DIR="${WS_DIR:-/home/ubuntu/ws_mikata_arm}"
 cd "$WS_DIR"
 
 # Named volumes are typically mounted as root:root. Make sure this user can write.
@@ -20,7 +20,7 @@ if [ ! -w "$WS_DIR/build" ] || [ ! -w "$WS_DIR/install" ] || [ ! -w "$WS_DIR/log
 fi
 
 # Keep bash history volume writable for postCreateCommand scripts and interactive shells.
-HISTORY_VOLUME="/home/ros/.bash_history_volume"
+HISTORY_VOLUME="${HOME}/.bash_history_volume"
 if [ -d "$HISTORY_VOLUME" ] && [ ! -w "$HISTORY_VOLUME" ]; then
   sudo chown -R "$(id -u)":"$(id -g)" "$HISTORY_VOLUME"
 fi
@@ -66,7 +66,7 @@ if [ -f "$WS_DIR/install/setup.bash" ]; then
   source "$WS_DIR/install/setup.bash"
   set -u
 
-  BASHRC="/home/ros/.bashrc"
+  BASHRC="${HOME}/.bashrc"
   LINE="source $WS_DIR/install/setup.bash"
   if [ -f "$BASHRC" ] && ! grep -qxF "$LINE" "$BASHRC"; then
     echo "$LINE" >> "$BASHRC"

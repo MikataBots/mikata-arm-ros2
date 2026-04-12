@@ -92,7 +92,7 @@ Reopen folder to develop in a container.
 **所要時間**: 5〜10分程度（ネットワーク速度に依存）
 
 **処理内容**:
-1. Dockerイメージのビルド（ROS 2 Humble + MoveIt2環境）
+1. Dockerイメージのビルド（ROS 2 jazzy + MoveIt2環境）
 2. 依存パッケージのインストール
 3. コンテナの起動
 4. VS Codeサーバーのインストール
@@ -114,7 +114,7 @@ Dev Containers: Building... (Step 12/25)
 
 **ステータスバー表示**:
 ```
-Dev Container: MikataArm MoveIt2 Humble Dev
+Dev Container: MikataArm MoveIt2 jazzy Dev
 ```
 
 **左下の緑アイコン**: コンテナ名が表示される
@@ -291,4 +291,4 @@ ros2 launch moveit_resources_panda_moveit_config demo.launch.py
 
 - [Dev Containers公式ドキュメント](https://code.visualstudio.com/docs/devcontainers/containers)
 - [Docker公式ドキュメント](https://docs.docker.com/)
-- [ROS 2 Humble公式ドキュメント](https://docs.ros.org/en/humble/)
+- [ROS 2 jazzy公式ドキュメント](https://docs.ros.org/en/jazzy/)

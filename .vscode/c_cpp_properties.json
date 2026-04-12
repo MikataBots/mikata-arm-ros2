@@ -6,7 +6,7 @@
         "limitSymbolsToIncludedHeaders": false
       },
       "includePath": [
-        "/opt/ros/humble/include/**",
+        "/opt/ros/jazzy/include/**",
         "/usr/include/**"
       ],
       "name": "ros2",

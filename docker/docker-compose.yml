@@ -5,7 +5,7 @@ services:
     build:
       context: ..
       dockerfile: docker/image/Dockerfile
-    image: mikata-arm-ros2:humble-dev
+    image: mikata-arm-ros2:jazzy-dev
     container_name: mikata-arm-ros2-dev
     network_mode: host
     privileged: true
@@ -20,19 +20,19 @@ services:
       # X11ソケットのマウント (LinuxでのGUI表示用)
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       # リポジトリをワークスペースのsrcにリンク
-      - ..:/home/ros/ws_mikata_arm/src/mikata-arm-ros2:cached
+      - ..:/home/ubuntu/ws_mikata_arm/src/mikata-arm-ros2:cached
       # ビルド成果物を永続化して起動時ビルドを高速化
-      - mikata_arm_build:/home/ros/ws_mikata_arm/build
-      - mikata_arm_install:/home/ros/ws_mikata_arm/install
-      - mikata_arm_log:/home/ros/ws_mikata_arm/log
+      - mikata_arm_build:/home/ubuntu/ws_mikata_arm/build
+      - mikata_arm_install:/home/ubuntu/ws_mikata_arm/install
+      - mikata_arm_log:/home/ubuntu/ws_mikata_arm/log
       # Bashヒストリーを永続化
-      - mikata_arm_bash_history:/home/ros/.bash_history_volume
+      - mikata_arm_bash_history:/home/ubuntu/.bash_history_volume
       # DRI デバイス (OpenGL/GPU アクセス用)
       - /dev/dri:/dev/dri
     devices:
       - /dev/dri:/dev/dri
-    working_dir: /home/ros/ws_mikata_arm
-    user: ros
+    working_dir: /home/ubuntu/ws_mikata_arm
+    user: ubuntu
     stdin_open: true
     tty: true
 
