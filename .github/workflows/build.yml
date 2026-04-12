@@ -3,10 +3,10 @@ name: Build
 on:
   push:
     branches:
-      - humble
+      - jazzy
   pull_request:
     branches:
-      - humble
+      - jazzy
 
 jobs:
   build:
@@ -33,13 +33,13 @@ jobs:
       - name: colcon build
         run: |
           docker run --rm \
-            -v ${{ github.workspace }}:/home/ros/ws_mikata_arm/src/mikata-arm-ros2:ro \
+            -v ${{ github.workspace }}:/home/ubuntu/ws_mikata_arm/src/mikata-arm-ros2:ro \
             --entrypoint "" \
             mikata-arm-ros2:ci \
             bash -c "
               set -e
-              source /opt/ros/humble/setup.bash
-              cd /home/ros/ws_mikata_arm
+              source /opt/ros/jazzy/setup.bash
+              cd /home/ubuntu/ws_mikata_arm
               mkdir -p build install log
               colcon build \
                 --base-paths src \

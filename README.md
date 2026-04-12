@@ -45,6 +45,8 @@ Reopen folder to develop in a container.
 
 **初回起動時はDockerイメージのビルドに5〜10分かかります。** ステータスバーに進捗が表示されます。
 
+> **Humble 以前の成果物が残っている場合**: `build/`、`install/`、`log/` は Docker named volume として永続化されています。ROS distro を切り替えた直後に `not found: "/opt/ros/humble/local_setup.bash"` のような表示が出る場合は、ホスト側で `bash docker/reset_colcon_volumes.sh` を実行してから `Dev Containers: Rebuild Container` を実行してください。
+
 ### 1.4. 起動確認
 
 コンテナが起動したら、VS Codeのターミナルを開いて、以下のコマンドで確認します：
@@ -55,7 +57,7 @@ ros2 doctor
 # 出力例
 # $ros2 doctor
 # ...(中略)...
-# /opt/ros/humble/lib/python3.10/site-packages/ros2doctor/api/package.py: 119: UserWarning: Cannot find the latest versions of packages: pantilt_bot_description mikata_arm_bringup mikata_arm_moveit mikata_arm_description [...] Use `ros2 doctor --report` to see full list.
+# /opt/ros/jazzy/lib/python3.10/site-packages/ros2doctor/api/package.py: 119: UserWarning: Cannot find the latest versions of packages: pantilt_bot_description mikata_arm_bringup mikata_arm_moveit mikata_arm_description [...] Use `ros2 doctor --report` to see full list.
 # 
 # All 5 checks passed
 # 
@@ -77,14 +79,14 @@ ros2 doctor
 1) ワークスペースをビルド
 
 ```bash
-cd /home/ros/ws_mikata_arm
+cd /home/ubuntu/ws_mikata_arm
 colcon build --symlink-install
 ```
 
 2) セットアップスクリプトを読み込む
 
 ```bash
-source /home/ros/ws_mikata_arm/install/setup.bash
+source /home/ubuntu/ws_mikata_arm/install/setup.bash
 ```
 
 3) シミュレーションモードでデモを起動
@@ -190,7 +192,7 @@ groups
 1) セットアップスクリプトを読み込む（未実行の場合）
 
 ```bash
-source /home/ros/ws_mikata_arm/install/setup.bash
+source /home/ubuntu/ws_mikata_arm/install/setup.bash
 ```
 
 2) 実機モードでデモを起動
@@ -298,7 +300,7 @@ ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=false usb_po
 古いコンテナを使用している場合：
 
 ```bash
-sudo usermod -aG dialout ros
+sudo usermod -aG dialout ubuntu
 ```
 
 その後、コンテナを再起動：
@@ -348,11 +350,11 @@ sudo udevadm trigger
 ### A.1. ビルド成果物のクリーン
 
 ```bash
-bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/clean_colcon_artifacts.sh
+bash /home/ubuntu/ws_mikata_arm/src/mikata-arm-ros2/scripts/clean_colcon_artifacts.sh
 ```
 
 ### A.2. クリーン→再ビルド（1コマンド）
 
 ```bash
-bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/rebuild_colcon.sh
+bash /home/ubuntu/ws_mikata_arm/src/mikata-arm-ros2/scripts/rebuild_colcon.sh
 ```

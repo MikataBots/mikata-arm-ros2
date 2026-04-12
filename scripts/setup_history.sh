@@ -3,6 +3,8 @@
 
 HISTORY_FILE=~/.bash_history
 HISTORY_VOLUME=~/.bash_history_volume
+WS_DIR="${WS_DIR:-$HOME/ws_mikata_arm}"
+REPO_DIR="$WS_DIR/src/mikata-arm-ros2"
 
 # ボリュームマウントされたヒストリーディレクトリが存在する場合
 if [ -d "$HISTORY_VOLUME" ]; then
@@ -23,9 +25,9 @@ fi
 
 # よく使うコマンドのリスト
 commands=(
-    "source /home/ros/ws_mikata_arm/install/setup.bash"
+    "source $WS_DIR/install/setup.bash"
     "rm -rf build/* install/* log/*"
-    "bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/rebuild_colcon.sh"
+    "bash $REPO_DIR/scripts/rebuild_colcon.sh"
     "ros2 launch mikata_arm_bringup bringup.launch.py"
     "ros2 launch moveit_resources_panda_moveit_config demo.launch.py"
     "ros2 launch mikata_arm_bringup bringup.launch.py use_fake_hardware:=true"

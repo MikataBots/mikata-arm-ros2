@@ -1,11 +1,11 @@
 {
-    "name": "MikataArm MoveIt2 Humble Dev",
+    "name": "MikataArm MoveIt2 Jazzy Dev",
     "dockerComposeFile": "../docker/docker-compose.yml",
     "service": "mikata-arm-dev",
-    "workspaceFolder": "/home/ros/ws_mikata_arm/src/mikata-arm-ros2",
-    "remoteUser": "ros",
+    "workspaceFolder": "/home/ubuntu/ws_mikata_arm/src/mikata-arm-ros2",
+    "remoteUser": "ubuntu",
     "initializeCommand": "xhost +local:docker",
-    "postCreateCommand": "bash /home/ros/ws_mikata_arm/src/mikata-arm-ros2/scripts/setup_history.sh",
+    "postCreateCommand": "bash /home/ubuntu/ws_mikata_arm/src/mikata-arm-ros2/scripts/setup_history.sh",
     "shutdownAction": "stopCompose",
     "customizations": {
         "vscode": {

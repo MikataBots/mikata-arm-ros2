@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-WS_DIR="${WS_DIR:-/home/ros/ws_mikata_arm}"
+WS_DIR="${WS_DIR:-/home/ubuntu/ws_mikata_arm}"
 REPO_DIR="$WS_DIR/src/mikata-arm-ros2"
 
 cd "$WS_DIR"
