@@ -33,13 +33,13 @@ jobs:
       - name: colcon build
         run: |
           docker run --rm \
-            -v ${{ github.workspace }}:/home/ros/ws_mikata_arm/src/mikata-arm-ros2:ro \
+            -v ${{ github.workspace }}:/home/ubuntu/ws_mikata_arm/src/mikata-arm-ros2:ro \
             --entrypoint "" \
             mikata-arm-ros2:ci \
             bash -c "
               set -e
               source /opt/ros/jazzy/setup.bash
-              cd /home/ros/ws_mikata_arm
+              cd /home/ubuntu/ws_mikata_arm
               mkdir -p build install log
               colcon build \
                 --base-paths src \
