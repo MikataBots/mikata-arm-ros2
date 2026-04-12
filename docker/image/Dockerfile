@@ -48,8 +48,8 @@ ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc
 
 # ROS2 CLI / colcon のTAB補完 (argcomplete)
-RUN echo 'eval "$(register-python-argcomplete3 ros2)"' >> ~/.bashrc \
-    && echo 'eval "$(register-python-argcomplete3 colcon)"' >> ~/.bashrc
+RUN echo 'eval "$(register-python-argcomplete ros2)"' >> ~/.bashrc \
+    && echo 'eval "$(register-python-argcomplete colcon)"' >> ~/.bashrc
 
 # ワークスペースディレクトリを作成
 RUN mkdir -p ${WS_DIR}

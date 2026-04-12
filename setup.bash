@@ -22,6 +22,13 @@ vcs pull ${colcon_ws}/src || true
 ## From apt repositories
 echo "Start to install dependent binarys(rosdep )"
 rosdep update
+if command -v apt-get >/dev/null 2>&1; then
+  if [ "$(id -u)" -eq 0 ]; then
+    apt-get update
+  else
+    sudo apt-get update
+  fi
+fi
 rosdep install -r -y -i \
   --from-paths ${colcon_ws}/src \
   --rosdistro $ROS_DISTRO

@@ -45,6 +45,8 @@ Reopen folder to develop in a container.
 
 **初回起動時はDockerイメージのビルドに5〜10分かかります。** ステータスバーに進捗が表示されます。
 
+> **Humble 以前の成果物が残っている場合**: `build/`、`install/`、`log/` は Docker named volume として永続化されています。ROS distro を切り替えた直後に `not found: "/opt/ros/humble/local_setup.bash"` のような表示が出る場合は、ホスト側で `bash docker/reset_colcon_volumes.sh` を実行してから `Dev Containers: Rebuild Container` を実行してください。
+
 ### 1.4. 起動確認
 
 コンテナが起動したら、VS Codeのターミナルを開いて、以下のコマンドで確認します：
