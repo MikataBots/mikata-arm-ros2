@@ -99,3 +99,10 @@ MikataArmにはROS 2対応パッケージが存在しなかったため、ros2_c
 - ros2_control / MoveIt2の実践的な適用事例を求めている方
 - 再現可能なロボティクス開発環境に関心がある方
 - DYNAMIXELベースのロボット向けに新規ROS 2パッケージを構築したい方
+
+
+-------
+
+## 結果 不採択
+
+<img width="851" height="1534" alt="image" src="https://github.com/user-attachments/assets/34471f47-0f24-4fd8-bd24-b8d476e774a0" />
